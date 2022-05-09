@@ -4,12 +4,11 @@ import {Button, Image, TextInput} from "react-native-web";
 
 const Buttons = () => {
     return (
-        <View style={styles.formSelect}>
-
-            <StatusBar style="auto" />
+        <View style = {styles.formSelect}>
+            <Text style = {{fontSize: 18}}> Select an incident form below: </Text>
             <Button
-                onPress={() => {}}
-                title={"Start Injury Form"}
+                onPress = {() => {}}
+                title = {"Start Injury Form"}
             />
             <Button
                 onPress={() => {}}
