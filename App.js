@@ -35,7 +35,7 @@ const HomePage = ({navigation}) => {
 
             <StatusBar style="auto"/>
             <View style={[styles.header, {flex: 8}]}>
-                <Image style={{marginTop: 20, width: 250, height: 250}}
+                <Image style={styles.image}
                        source={require('./assets/STS-logo.png')}/>
             </View>
             <View style={{flex: 4}}>
@@ -48,7 +48,9 @@ const HomePage = ({navigation}) => {
 const InjuryPage = () => {
     return (
         <View style={styles.container}>
+
             <Text> Injury Form</Text>
+
         </View>
     );
 }
@@ -64,7 +66,7 @@ const App = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator >
                 <Stack.Screen
                     name="Home"
                     component={HomePage}
@@ -114,5 +116,11 @@ const styles = StyleSheet.create({
     buttons: {
         margin: 20,
         padding: 20
+    },
+    image: {
+        flex: 1,
+        width: 300,
+        height: 300,
+        resizeMode: 'contain'
     }
 });
