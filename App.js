@@ -7,19 +7,21 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
-const FormButtons = () => {
+const FormButtons = ({navigation}) => {
     return (
         <View style={styles.formSelect}>
             <Text style={[styles.title, {fontSize: 18}]}> Select an incident form below: </Text>
             <Button
+                style={styles.buttons}
                 onPress={() => {
-                    alert('You tapped the button!');
+                    navigation.navigate('InjuryForm')
                 }}
                 title={"Start Injury Form"}
             />
             <Button
+                style={styles.buttons}
                 onPress={() => {
-                    alert('You tapped the button!');
+                    navigation.navigate('AutoAccidentForm')
                 }}
                 title={"Start Auto Accident Form"}
             />
@@ -27,21 +29,35 @@ const FormButtons = () => {
     );
 
 }
-const HomePage = () => {
+const HomePage = ({navigation}) => {
     return (
         <View style={[styles.container, {flexDirection: 'column'}]}>
 
             <StatusBar style="auto"/>
-            <View style={[styles.header, {flex: 10}]}>
-                <Image style={{width: 150, height: 150}}
+            <View style={[styles.header, {flex: 8}]}>
+                <Image style={{marginTop: 20, width: 250, height: 250}}
                        source={require('./assets/STS-logo.png')}/>
             </View>
-            <View style={{flex: 2}}>
-                <FormButtons/>
+            <View style={{flex: 4}}>
+                <FormButtons navigation={navigation}/>
             </View>
         </View>
     );
 
+}
+const InjuryPage = () => {
+    return (
+        <View style={styles.container}>
+            <Text> Injury Form</Text>
+        </View>
+    );
+}
+const AutoAccidentPage = () => {
+    return (
+        <View style={styles.container}>
+            <Text> Auto Accident Form</Text>
+        </View>
+    );
 }
 
 const App = () => {
@@ -54,9 +70,18 @@ const App = () => {
                     component={HomePage}
                     options={{title: "Welcome to STS Connect"}}
                 />
+                <Stack.Screen
+                    name={"InjuryForm"}
+                    component={InjuryPage}
+                    options={{title: "Injury Form"}}
+                />
+                <Stack.Screen
+                    name={"AutoAccidentForm"}
+                    component={AutoAccidentPage}
+                    options={{title: "Auto Accident Form"}}
+                />
 
             </Stack.Navigator>
-
         </NavigationContainer>
 
     );
@@ -69,6 +94,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#dddddd',
+        alignItems: 'center',
 
     },
     header: {
@@ -82,6 +108,11 @@ const styles = StyleSheet.create({
     },
     formSelect: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 20
+    },
+    buttons: {
+        margin: 20,
+        padding: 20
     }
 });
