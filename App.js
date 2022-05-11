@@ -4,6 +4,8 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Button, Image, TextInput} from "react-native-web";
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import InjuryPage from "./components/InjuryForm";
+import AutoAccidentPage from "./components/AutoAccidentForm";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,22 +46,6 @@ const HomePage = ({navigation}) => {
         </View>
     );
 
-}
-const InjuryPage = () => {
-    return (
-        <View style={styles.container}>
-
-            <Text> Injury Form</Text>
-
-        </View>
-    );
-}
-const AutoAccidentPage = () => {
-    return (
-        <View style={styles.container}>
-            <Text> Auto Accident Form</Text>
-        </View>
-    );
 }
 
 const App = () => {
@@ -109,7 +95,7 @@ const styles = StyleSheet.create({
         color: 'red',
     },
     formSelect: {
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
         padding: 20
     },
