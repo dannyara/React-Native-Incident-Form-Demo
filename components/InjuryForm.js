@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TextInput, View} from "react-native";
+import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 import {useState} from "react";
 import * as React from "react";
 
@@ -16,17 +16,22 @@ const NameInput = ({label}) => {
         </View>
     );
 }
-const InjuryPage = () => {
+const InjuryPage = ({navigation}) => {
     return (
         <View style={styles.container}>
             <Text style={{fontSize: 48}}> Injury Form</Text>
-            <NameInput label={"Name of Employee Involved"} />
+            <NameInput label={"Name of Employee Injured"} />
             <NameInput label={"Incident Location"} />
             <NameInput label={"STS Vehicle Involved"} />
             <NameInput label={"Crew Leader Name"} />
             <NameInput label={"Direct Supervisor"} />
             <NameInput label={"Stanley Tree Division"} />
-
+            <Button
+                title="Submit"
+                onPress={() => {
+                    navigation.pop()
+                }}
+            />
         </View>
     );
 }

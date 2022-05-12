@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TextInput, View} from "react-native";
+import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 import * as React from "react";
 import {useState} from "react";
 
@@ -16,7 +16,7 @@ const NameInput = ({label}) => {
     );
 }
 
-const AutoAccidentPage = () => {
+const AutoAccidentPage = ({navigation}) => {
 
     return (
         <View style={styles.container}>
@@ -27,6 +27,12 @@ const AutoAccidentPage = () => {
             <NameInput label={"Crew Leader Name"} />
             <NameInput label={"Direct Supervisor"} />
             <NameInput label={"Stanley Tree Division"} />
+            <Button
+                title="Submit"
+                onPress={() => {
+                    navigation.pop()
+                }}
+            />
 
         </View>
     );
