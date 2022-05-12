@@ -1,6 +1,5 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import AppContainer from './src/views/app';
 import App from "./App.js"
 describe("<App />", () => {
     it('has 1 child', () => {

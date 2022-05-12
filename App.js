@@ -13,20 +13,25 @@ const FormButtons = ({navigation}) => {
     return (
         <View style={styles.formSelect}>
             <Text style={[styles.title, {fontSize: 18}]}> Select an incident form below: </Text>
-            <Button
-                style={styles.buttons}
-                onPress={() => {
-                    navigation.navigate('InjuryForm')
-                }}
-                title={"Start Injury Form"}
-            />
-            <Button
-                style={styles.buttons}
-                onPress={() => {
-                    navigation.navigate('AutoAccidentForm')
-                }}
-                title={"Start Auto Accident Form"}
-            />
+            <View style={{margin: 20}}>
+                <Button
+                    style={styles.buttons}
+                    onPress={() => {
+                        navigation.navigate('InjuryForm')
+                    }}
+                    title={"Start Injury Form"}
+                />
+            </View>
+           <View style={{margin:20}}>
+               <Button
+                   style={styles.buttons}
+                   onPress={() => {
+                       navigation.navigate('AutoAccidentForm')
+                   }}
+                   title={"Start Auto Accident Form"}
+               />
+           </View>
+
         </View>
     );
 
@@ -97,7 +102,8 @@ const styles = StyleSheet.create({
     formSelect: {
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 20
+        padding: 20,
+
     },
     buttons: {
         margin: 20,
