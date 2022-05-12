@@ -10,6 +10,7 @@ const NameInput = ({label}) => {
             <label>{label}</label>
             <TextInput value={text}
                        placeholder = " Enter text here"
+                       name={"input"}
                        style={styles.textInput}
                        onChangeText={newText => setText(newText)}
                        defaultValue={text}>
