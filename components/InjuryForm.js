@@ -1,4 +1,4 @@
-import {Button, ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
+import {Button, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {useState} from "react";
 import * as React from "react";
 
@@ -7,7 +7,7 @@ const NameInput = ({label}) => {
     const [text, setText] = useState('')
     return (
         <View style={styles.nameInput}>
-            <label>{label}</label>
+            <Text>{label}</Text>
             <TextInput value={text}
                        placeholder = " Enter text here"
                        name={"input"}
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     },
     nameInput: {
         fontSize: 20,
-        justifyContent: 'top',
+        justifyContent: 'flex-start',
         width: '80%',
         margin: 20,
         padding: 10,
@@ -64,7 +64,11 @@ const styles = StyleSheet.create({
     },
     textInput: {
         backgroundColor: 'white',
-        height: 40, border: '1px maroon solid'
+        height: 40,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: 'maroon',
+        borderStyle: 'solid'
     }
 });
 export default InjuryPage
