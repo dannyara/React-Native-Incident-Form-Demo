@@ -1,4 +1,4 @@
-import {Button, StyleSheet, ScrollView, Text, TextInput, View} from "react-native";
+import {Button, StyleSheet, ScrollView, Text, TextInput, View, SafeAreaView} from "react-native";
 import * as React from "react";
 import {useState} from "react";
 
@@ -11,44 +11,71 @@ const NameInput = ({label}) => {
                        placeholder = " Enter text here"
                        style={styles.textInput}
                        onChangeText={newText => setText(newText)}
-                       defaultValue={text}>
+                        autoCapitalize='words'>
             </TextInput>
         </View>
     );
 }
 
-const testArr = [{
-    color: "blue",
-    text: "text1"
-}, {
-    color: "red",
-    text: "text2"
-}];
+const fieldsObject = [
+    {
+        'label': 'Name of Employee Involved',
+        'placeholder': 'Enter Full Name',
+        'required': true,
+        'type': 'text-field',
+    },
+    {
+        'label': 'Incident Location',
+        'placeholder': 'Enter Address',
+        'required': true,
+        'type': 'time-date',
+    },
+    {
+        'label': '"STS Vehicle Involved"',
+        'placeholder': 'Enter STS Equipment Number',
+        'required': true,
+        'type': 'text-field',
+    },
+    {
+        'label': 'Crew Leader Name',
+        'placeholder': 'Enter Full Name',
+        'required': true,
+        'type': 'text-field',
+    },
+    {
+        'label': 'Direct Supervisor',
+        'placeholder': 'Enter Full Name',
+        'required': true,
+        'type': 'text-field',
+    },
+    {
+        'label': 'Stanley Tree Division',
+        'placeholder': 'Enter Division Name',
+        'required': true,
+        'type': 'dropdown',
+    },
+]
 
 const DynamicInput = () => {
-    const fieldsObject = [
-        {
-            'label': 'Name of Employee Involved',
-            'placeholder': 'Enter Full Name',
-            'required': true,
-            'type': 'text-field',
-        },
-        {
-            'label': 'Incident Location',
-            'placeholder': 'Enter Address',
-            'required': true,
-            'type': 'time-date',
-        }
-        ]
+    const [text, setText] = useState('')
     return(
         <View>
-            {testArr.map((data) =>
-                <Text> {data.text} </Text>
+            {fieldsObject.map((data, index) =>
+                <View style={styles.input}>
+                    <Text> {data.label} </Text>
+                    <TextInput
+                        key={index}
+                        value={data.text}
+                        placeholder={data.placeholder}
+                        style={styles.textInput}
+                        onChangeText={newText => setText(newText)}
+                    />
+                </View>
             )}
-
         </View>
+
     )
-};
+}
 
 const AutoAccidentPage = ({navigation}) => {
 
@@ -62,12 +89,12 @@ const AutoAccidentPage = ({navigation}) => {
                 <NameInput label={"Crew Leader Name"} />
                 <NameInput label={"Direct Supervisor"} />
                 <NameInput label={"Stanley Tree Division"} />
-                {/*<FieldInput fields={fieldsObject} />*/}
                 <DynamicInput />
                 <View>
                     <Button
                         title="Submit"
                         onPress={() => {
+                            alert("Successful submit of Auto accident form")
                             navigation.pop()
                         }}
                     />
@@ -93,6 +120,14 @@ const styles = StyleSheet.create({
         fontSize: 20,
         justifyContent: 'flex-start',
         width: '80%',
+        margin: 20,
+        padding: 10,
+
+    },
+    input: {
+        fontSize: 20,
+        justifyContent: 'center',
+        minWidth: '100%',
         margin: 20,
         padding: 10,
 

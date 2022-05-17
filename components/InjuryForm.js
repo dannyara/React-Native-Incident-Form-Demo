@@ -2,8 +2,18 @@ import {Button, ScrollView, StyleSheet, Text, TextInput, View} from 'react-nativ
 import {useState} from "react";
 import * as React from "react";
 
+const checkValue = () => {
+    if (this.state.value.length > 2) {
+        console.log("test")
+    }
+}
+const validate = (text) => {
+    return true
+}
 const NameInput = ({label}) => {
+
     const [text, setText] = useState('')
+
     return (
         <View style={styles.nameInput}>
             <Text>{label}</Text>
@@ -12,8 +22,16 @@ const NameInput = ({label}) => {
                        name={"input"}
                        style={styles.textInput}
                        onChangeText={newText => setText(newText)}
-                       defaultValue={text}>
-            </TextInput>
+                       autoCapitalize='words'
+                       defaultValue={text}
+                       onBlur ={() =>{
+                           if (!validate(text)) {
+
+                        } else {
+                           this.stats.backgroundColor = 'green'
+                        }
+                       }}
+            />
         </View>
     );
 }
@@ -33,6 +51,7 @@ const InjuryPage = ({navigation}) => {
                     <Button
                         title="Submit"
                         onPress={() => {
+                            alert("Successful submit of Injury form")
                             navigation.pop()
                         }}
                     />
