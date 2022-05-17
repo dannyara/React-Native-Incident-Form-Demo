@@ -17,6 +17,39 @@ const NameInput = ({label}) => {
     );
 }
 
+const testArr = [{
+    color: "blue",
+    text: "text1"
+}, {
+    color: "red",
+    text: "text2"
+}];
+
+const DynamicInput = () => {
+    const fieldsObject = [
+        {
+            'label': 'Name of Employee Involved',
+            'placeholder': 'Enter Full Name',
+            'required': true,
+            'type': 'text-field',
+        },
+        {
+            'label': 'Incident Location',
+            'placeholder': 'Enter Address',
+            'required': true,
+            'type': 'time-date',
+        }
+        ]
+    return(
+        <View>
+            {testArr.map((data) =>
+                <Text> {data.text} </Text>
+            )}
+
+        </View>
+    )
+};
+
 const AutoAccidentPage = ({navigation}) => {
 
     return (
@@ -29,6 +62,8 @@ const AutoAccidentPage = ({navigation}) => {
                 <NameInput label={"Crew Leader Name"} />
                 <NameInput label={"Direct Supervisor"} />
                 <NameInput label={"Stanley Tree Division"} />
+                {/*<FieldInput fields={fieldsObject} />*/}
+                <DynamicInput />
                 <View>
                     <Button
                         title="Submit"

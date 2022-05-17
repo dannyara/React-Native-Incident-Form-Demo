@@ -2,7 +2,6 @@ import {Button, ScrollView, StyleSheet, Text, TextInput, View} from 'react-nativ
 import {useState} from "react";
 import * as React from "react";
 
-
 const NameInput = ({label}) => {
     const [text, setText] = useState('')
     return (
@@ -18,6 +17,7 @@ const NameInput = ({label}) => {
         </View>
     );
 }
+
 const InjuryPage = ({navigation}) => {
     return (
         <ScrollView style={styles.scrollContainer}>

@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     formSelect: {
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 20,
 
     },
     buttons: {
