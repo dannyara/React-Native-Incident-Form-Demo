@@ -1,11 +1,12 @@
 import {Button, StyleSheet, ScrollView, Text, TextInput, View, SafeAreaView} from "react-native";
 import * as React from "react";
 import {useState} from "react";
+import {NativeStackView} from "@react-navigation/native-stack";
 
 const NameInput = ({label}) => {
     const [text, setText] = useState('')
     return (
-        <View style={styles.nameInput}>
+        <View style={styles.fieldList}>
             <Text>{label}</Text>
             <TextInput value={text}
                        placeholder = " Enter text here"
@@ -31,7 +32,7 @@ const fieldsObject = [
         'type': 'time-date',
     },
     {
-        'label': '"STS Vehicle Involved"',
+        'label': 'STS Vehicle Involved',
         'placeholder': 'Enter STS Equipment Number',
         'required': true,
         'type': 'text-field',
@@ -56,12 +57,12 @@ const fieldsObject = [
     },
 ]
 
-const DynamicInput = () => {
+const DisplayFields = () => {
     const [text, setText] = useState('')
     return(
-        <View>
+        <View style={{width: '100%', alignItems: 'center'}}>
             {fieldsObject.map((data, index) =>
-                <View style={styles.input}>
+                <View style={styles.fieldList}>
                     <Text> {data.label} </Text>
                     <TextInput
                         key={index}
@@ -83,13 +84,7 @@ const AutoAccidentPage = ({navigation}) => {
         <ScrollView style={styles.scrollContainer}>
             <View style={styles.container}>
                 <Text style={{fontSize: 36}}> Auto Accident Form</Text>
-                <NameInput label={"Name of Employee Involved"} />
-                <NameInput label={"Incident Location"} />
-                <NameInput label={"STS Vehicle Involved"} />
-                <NameInput label={"Crew Leader Name"} />
-                <NameInput label={"Direct Supervisor"} />
-                <NameInput label={"Stanley Tree Division"} />
-                <DynamicInput />
+                <DisplayFields />
                 <View>
                     <Button
                         title="Submit"
@@ -105,6 +100,7 @@ const AutoAccidentPage = ({navigation}) => {
 
     );
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -116,18 +112,10 @@ const styles = StyleSheet.create({
     scrollContainer: {
         flex: 1,
     },
-    nameInput: {
-        fontSize: 20,
-        justifyContent: 'flex-start',
-        width: '80%',
-        margin: 20,
-        padding: 10,
-
-    },
-    input: {
+    fieldList: {
         fontSize: 20,
         justifyContent: 'center',
-        minWidth: '100%',
+        width: '80%',
         margin: 20,
         padding: 10,
 

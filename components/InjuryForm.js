@@ -8,9 +8,73 @@ const checkValue = () => {
     }
 }
 const validate = (text) => {
-    return true
+    return text === "test"
 }
-const NameInput = ({label}) => {
+
+const fieldsObject = [
+    {
+        'label': 'Name of Employee Involved',
+        'placeholder': 'Enter Full Name',
+        'required': true,
+        'type': 'text-field',
+    },
+    {
+        'label': 'Incident Location',
+        'placeholder': 'Enter Address',
+        'required': true,
+        'type': 'time-date',
+    },
+    {
+        'label': 'How Injury Occured',
+        'placeholder': 'Enter all relevant details',
+        'required': true,
+        'height': 80,
+        'type': 'text-field',
+    },
+    {
+        'label': 'Crew Leader Name',
+        'placeholder': 'Enter Full Name',
+        'required': true,
+        'type': 'text-field',
+    },
+    {
+        'label': 'Direct Supervisor',
+        'placeholder': 'Enter Full Name',
+        'required': true,
+        'type': 'text-field',
+    },
+    {
+        'label': 'Stanley Tree Division',
+        'placeholder': 'Enter Division Name',
+        'required': true,
+        'type': 'dropdown',
+    },
+]
+
+const DisplayFields = () => {
+    const [text, setText] = useState('')
+    return(
+        <View style={{width: '100%', alignItems: 'center'}}>
+            {fieldsObject.map((data, index) =>
+                <View style={styles.fieldList}>
+                    <Text> {data.label} </Text>
+                    <TextInput
+                        key={index}
+                        value={data.text}
+                        placeholder={data.placeholder}
+                        style={styles.textInput}
+                        height={data.height}
+                        onChangeText={newText => setText(newText)}
+                    />
+                </View>
+            )}
+        </View>
+
+    )
+}
+
+
+const TestValidation = ({label}) => {
 
     const [text, setText] = useState('')
 
@@ -25,10 +89,11 @@ const NameInput = ({label}) => {
                        autoCapitalize='words'
                        defaultValue={text}
                        onBlur ={() =>{
-                           if (!validate(text)) {
+                           if (validate(text)) {
+                               console.log('true')
 
                         } else {
-                           this.stats.backgroundColor = 'green'
+                           console.log('false')
                         }
                        }}
             />
@@ -41,12 +106,7 @@ const InjuryPage = ({navigation}) => {
         <ScrollView style={styles.scrollContainer}>
             <View style={styles.container}>
                 <Text style={{fontSize: 36}}> Injury Form</Text>
-                <NameInput label={"Name of Employee Injured"} />
-                <NameInput label={"Incident Location"} />
-                <NameInput label={"STS Vehicle Involved"} />
-                <NameInput label={"Crew Leader Name"} />
-                <NameInput label={"Direct Supervisor"} />
-                <NameInput label={"Stanley Tree Division"} />
+                <DisplayFields />
                 <View>
                     <Button
                         title="Submit"
@@ -73,14 +133,14 @@ const styles = StyleSheet.create({
     scrollContainer: {
         flex: 1,
     },
-    nameInput: {
+    fieldList: {
         fontSize: 20,
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         width: '80%',
         margin: 20,
         padding: 10,
-
     },
+
     textInput: {
         backgroundColor: 'white',
         height: 40,
