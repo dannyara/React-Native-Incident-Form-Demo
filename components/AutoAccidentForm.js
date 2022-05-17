@@ -68,7 +68,7 @@ const DisplayFields = () => {
                         key={index}
                         value={data.text}
                         placeholder={data.placeholder}
-                        style={styles.textInput}
+                        style={[styles.textInput, {height: data.height || 50}]}
                         onChangeText={newText => setText(newText)}
                     />
                 </View>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#dddddd',
         alignItems: 'center',
-        padding: 20
+        padding: 20,
 
     },
     scrollContainer: {
@@ -117,12 +117,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '80%',
         margin: 20,
-        padding: 10,
+
 
     },
     textInput: {
         backgroundColor: 'white',
-        height: 40,
+        height: 50,
         overflow: 'hidden',
         borderWidth: 1,
         borderColor: 'maroon',
