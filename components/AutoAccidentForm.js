@@ -55,6 +55,13 @@ const fieldsObject = [
         'required': true,
         'type': 'dropdown',
     },
+    {
+        'label': 'Police Report Number',
+        'placeholder': 'Enter police report details',
+        'required': true,
+        'type': 'text-field',
+    },
+
 ]
 
 const DisplayFields = () => {

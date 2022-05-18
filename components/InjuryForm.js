@@ -49,6 +49,19 @@ const fieldsObject = [
         'required': true,
         'type': 'dropdown',
     },
+    {
+        'label': 'Date and time of Incident',
+        'placeholder': 'Enter Division Name',
+        'required': true,
+        'type': 'dropdown',
+    },
+    {
+        'label': 'Part of body injured',
+        'placeholder': 'Enter Division Name',
+        'required': true,
+        'type': 'dropdown',
+    },
+
 ]
 
 const DisplayFields = () => {
@@ -106,6 +119,8 @@ const InjuryPage = ({navigation}) => {
             <View style={styles.container}>
                 <Text style={{fontSize: 36}}> Injury Form</Text>
                 <DisplayFields />
+
+
                 <View>
                     <Button
                         title="Submit"
