@@ -2,6 +2,8 @@ import {Button, StyleSheet, ScrollView, Text, TextInput, View, SafeAreaView} fro
 import * as React from "react";
 import {useState} from "react";
 import {NativeStackView} from "@react-navigation/native-stack";
+import RadioButtonRN from "radio-buttons-react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const NameInput = ({label}) => {
     const [text, setText] = useState('')
@@ -76,10 +78,27 @@ const DisplayFields = () => {
                         value={data.text}
                         placeholder={data.placeholder}
                         style={[styles.textInput, {height: data.height || 50}]}
+                        autoCapitalize='words'
                         onChangeText={newText => setText(newText)}
                     />
                 </View>
             )}
+            <View style={{alignItems: 'end'}}>
+                <Text> Police Report Made? </Text>
+                <RadioButtonRN
+                    data={[{'label': ' Yes'},{'label': ' No'}]}
+                    style={{'flexDirection': 'row', 'margin': 20, 'alignItems': 'end'}}
+                    selectedBtn={(e) => console.log(e)}
+                    circleSize={16}
+                    icon={
+                        <Icon
+                            name="check-circle"
+                            size={25}
+                            color="#2c9dd1"
+                        />
+                    }
+                />
+            </View>
         </View>
 
     )

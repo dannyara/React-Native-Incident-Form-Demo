@@ -2,6 +2,7 @@ import {Button, ScrollView, StyleSheet, Text, TextInput, View} from 'react-nativ
 import {useState} from "react";
 import * as React from "react";
 import RadioButtonRN from 'radio-buttons-react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const checkValue = () => {
     if (this.state.value.length > 2) {
@@ -81,10 +82,20 @@ const DisplayFields = () => {
                     />
                 </View>
             )}
-            <View>
+            <View style={{alignItems: 'end'}}>
+                <Text> Medical Treatment Sought?</Text>
                 <RadioButtonRN
-                    data={['yes','no']}
+                    data={[{'label': 'Yes'},{'label': 'No'}]}
+                    style={{'flexDirection': 'row', 'margin': 20, 'alignItems': 'end'}}
                     selectedBtn={(e) => console.log(e)}
+                    circleSize={16}
+                    icon={
+                        <Icon
+                            name="check-circle"
+                            size={25}
+                            color="#2c9dd1"
+                        />
+                    }
                 />
             </View>
         </View>
@@ -126,7 +137,6 @@ const InjuryPage = ({navigation}) => {
             <View style={styles.container}>
                 <Text style={{fontSize: 36}}> Injury Form</Text>
                 <DisplayFields />
-
 
                 <View>
                     <Button
