@@ -80,6 +80,7 @@ const DisplayFields = () => {
                         onChangeText={newText => setText(newText)}
                         onBlur ={() =>{
                             if (data.required && !checkRequired(text)) {
+                                // this.setStyle({color: 'black'})
                                 alert("This is a Required Field")
                             }
                         }}
