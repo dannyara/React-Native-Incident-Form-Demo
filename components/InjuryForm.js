@@ -4,16 +4,12 @@ import * as React from "react";
 import RadioButtonRN from 'radio-buttons-react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const checkValue = () => {
-    if (this.state.value.length > 2) {
-        console.log("test")
-    }
-}
-const validate = (text) => {
-    return text === "test"
+const checkRequired = (text) => {
+    console.log(text)
+    return text.length > 0
 }
 
-const fieldsObject = [
+const fields = [
     {
         'label': 'Name of Employee Involved',
         'placeholder': 'Enter Full Name',
@@ -24,10 +20,11 @@ const fieldsObject = [
         'label': 'Incident Location',
         'placeholder': 'Enter Address',
         'required': true,
+        'height': 60,
         'type': 'time-date',
     },
     {
-        'label': 'How Injury Occured',
+        'label': 'How Injury Occurred',
         'placeholder': 'Enter all relevant details',
         'required': true,
         'height': 100,
@@ -68,17 +65,24 @@ const fieldsObject = [
 
 const DisplayFields = () => {
     const [text, setText] = useState('')
+    // Need to make many of these
     return(
         <View style={{width: '100%', alignItems: 'center'}}>
-            {fieldsObject.map((data, index) =>
+            {fields.map((data, index) =>
                 <View style={styles.fieldList}>
                     <Text> {data.label} </Text>
                     <TextInput
                         key={index}
                         value={data.text}
                         placeholder={data.placeholder}
-                        style={[styles.textInput, {height: data.height || 50}]}
+                        style={[styles.textInput, {height: data.height || 50} ]}
+                        multiline={data.height && true}
                         onChangeText={newText => setText(newText)}
+                        onBlur ={() =>{
+                            if (data.required && !checkRequired(text)) {
+                                alert("This is a Required Field")
+                            }
+                        }}
                     />
                 </View>
             )}
@@ -86,14 +90,14 @@ const DisplayFields = () => {
                 <Text> Medical Treatment Sought?</Text>
                 <RadioButtonRN
                     data={[{'label': 'Yes'},{'label': 'No'}]}
-                    style={{'flexDirection': 'row', 'margin': 20, 'alignItems': 'end'}}
+                    style={{'flexDirection': 'row', 'padding': 10, 'textAlign': 'end'}}
                     selectedBtn={(e) => console.log(e)}
                     circleSize={16}
                     icon={
                         <Icon
                             name="check-circle"
                             size={25}
-                            color="#2c9dd1"
+                            color="#bc7d9c"
                         />
                     }
                 />
@@ -104,40 +108,12 @@ const DisplayFields = () => {
 }
 
 
-const TestValidation = ({label}) => {
-
-    const [text, setText] = useState('')
-
-    return (
-        <View style={styles.nameInput}>
-            <Text>{label}</Text>
-            <TextInput value={text}
-                       placeholder = " Enter text here"
-                       name={"input"}
-                       style={styles.textInput}
-                       onChangeText={newText => setText(newText)}
-                       autoCapitalize='words'
-                       defaultValue={text}
-                       onBlur ={() =>{
-                           if (validate(text)) {
-                               console.log('true')
-
-                        } else {
-                           console.log('false')
-                        }
-                       }}
-            />
-        </View>
-    );
-}
-
 const InjuryPage = ({navigation}) => {
     return (
         <ScrollView style={styles.scrollContainer}>
             <View style={styles.container}>
                 <Text style={{fontSize: 36}}> Injury Form</Text>
                 <DisplayFields />
-
                 <View>
                     <Button
                         title="Submit"

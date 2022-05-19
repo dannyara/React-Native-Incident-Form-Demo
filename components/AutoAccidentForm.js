@@ -1,26 +1,15 @@
 import {Button, StyleSheet, ScrollView, Text, TextInput, View, SafeAreaView} from "react-native";
 import * as React from "react";
 import {useState} from "react";
-import {NativeStackView} from "@react-navigation/native-stack";
 import RadioButtonRN from "radio-buttons-react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const NameInput = ({label}) => {
-    const [text, setText] = useState('')
-    return (
-        <View style={styles.fieldList}>
-            <Text>{label}</Text>
-            <TextInput value={text}
-                       placeholder = " Enter text here"
-                       style={styles.textInput}
-                       onChangeText={newText => setText(newText)}
-                        autoCapitalize='words'>
-            </TextInput>
-        </View>
-    );
+const checkRequired = (text) => {
+    console.log(text)
+    return text.length > 0
 }
 
-const fieldsObject = [
+const fields = [
     {
         'label': 'Name of Employee Involved',
         'placeholder': 'Enter Full Name',
@@ -31,6 +20,7 @@ const fieldsObject = [
         'label': 'Incident Location',
         'placeholder': 'Enter Address',
         'required': true,
+        'height': 60,
         'type': 'time-date',
     },
     {
@@ -39,6 +29,14 @@ const fieldsObject = [
         'required': true,
         'type': 'text-field',
     },
+    {
+        'label': 'Please Describe the Details of the Incident',
+        'placeholder': 'Enter Incident Details',
+        'height': 100,
+        'required': true,
+        'type': 'text-field',
+    },
+
     {
         'label': 'Crew Leader Name',
         'placeholder': 'Enter Full Name',
@@ -70,31 +68,38 @@ const DisplayFields = () => {
     const [text, setText] = useState('')
     return(
         <View style={{width: '100%', alignItems: 'center'}}>
-            {fieldsObject.map((data, index) =>
+            {fields.map((data, index) =>
                 <View style={styles.fieldList}>
                     <Text> {data.label} </Text>
                     <TextInput
                         key={index}
                         value={data.text}
                         placeholder={data.placeholder}
-                        style={[styles.textInput, {height: data.height || 50}]}
+                        style={[styles.textInput, {height: data.height || 50} ]}
+                        multiline={data.height && true}
+                        numberOfLines={data.height / 50}
                         autoCapitalize='words'
                         onChangeText={newText => setText(newText)}
+                        onBlur ={() =>{
+                            if (data.required && !checkRequired(text)) {
+                                alert("This is a Required Field")
+                            }
+                        }}
                     />
                 </View>
             )}
-            <View style={{alignItems: 'end'}}>
+            <View style={{ 'padding': 20, 'textAlign': 'center'}}>
                 <Text> Police Report Made? </Text>
                 <RadioButtonRN
-                    data={[{'label': ' Yes'},{'label': ' No'}]}
-                    style={{'flexDirection': 'row', 'margin': 20, 'alignItems': 'end'}}
+                    data={[{'label': 'Yes'},{'label': 'No'}]}
+                    style={{'flexDirection': 'row', 'padding': 10, 'textAlign': 'end'}}
                     selectedBtn={(e) => console.log(e)}
-                    circleSize={16}
+                    circleSize={10}
                     icon={
                         <Icon
                             name="check-circle"
                             size={25}
-                            color="#2c9dd1"
+                            color="#bc7d9c"
                         />
                     }
                 />
