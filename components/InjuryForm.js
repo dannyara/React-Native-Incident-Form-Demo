@@ -1,6 +1,7 @@
 import {Button, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {useState} from "react";
 import * as React from "react";
+import RadioButtonRN from 'radio-buttons-react-native';
 
 const checkValue = () => {
     if (this.state.value.length > 2) {
@@ -80,6 +81,12 @@ const DisplayFields = () => {
                     />
                 </View>
             )}
+            <View>
+                <RadioButtonRN
+                    data={['yes','no']}
+                    selectedBtn={(e) => console.log(e)}
+                />
+            </View>
         </View>
 
     )

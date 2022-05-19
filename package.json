@@ -11,6 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@expo/webpack-config": "^0.16.24",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
     "expo": "^45.0.4",
@@ -19,8 +20,8 @@
     "jest": "^24.1.0",
     "jest-expo": "^45.0.1",
     "radio-buttons-react-native": "^1.0.4",
-    "react": "^17.0.1",
-    "react-dom": "17.0.1",
+    "react": "^17.0.2",
+    "react-dom": "17.0.2",
     "react-native": "0.64.3",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
