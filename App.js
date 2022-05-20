@@ -66,12 +66,12 @@ const App = () => {
                 <Stack.Screen
                     name={"InjuryForm"}
                     component={InjuryPage}
-                    options={{title: "New Incident"}}
+                    options={{title: "New Injury"}}
                 />
                 <Stack.Screen
                     name={"AutoAccidentForm"}
                     component={AutoAccidentPage}
-                    options={{title: "New Incident Form"}}
+                    options={{title: "New Auto Accident"}}
                 />
 
             </Stack.Navigator>

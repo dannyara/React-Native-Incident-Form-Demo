@@ -87,7 +87,7 @@ const DisplayFields = () => {
                     />
                 </View>
             )}
-            <View style={{marginTop: 10}}>
+            <View style={{marginTop: 10, marginBottom: 20}}>
                 <Text style={{fontSize: 16, textAlign: 'center'}}> Police Report Made?</Text>
                 <View style={{flexDirection: 'row', width: '80%'}}>
                     <RadioButtonRN
@@ -117,7 +117,7 @@ const AutoAccidentPage = ({navigation}) => {
             <View style={styles.container}>
                 <Text style={{fontSize: 36}}> Auto Accident Form</Text>
                 <DisplayFields/>
-                <View>
+                <View style={{margin: 20, width: '40%'}}>
                     <Button
                         title="Submit"
                         onPress={() => {
