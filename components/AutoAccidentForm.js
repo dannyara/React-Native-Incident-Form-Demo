@@ -66,7 +66,7 @@ const fields = [
 
 const DisplayFields = () => {
     const [text, setText] = useState('')
-    return(
+    return (
         <View style={{width: '100%', alignItems: 'center'}}>
             {fields.map((data, index) =>
                 <View style={styles.fieldList}>
@@ -75,11 +75,11 @@ const DisplayFields = () => {
                         key={index}
                         value={data.text}
                         placeholder={data.placeholder}
-                        style={[styles.textInput, {height: data.height || 50} ]}
+                        style={[styles.textInput, {height: data.height || 50}]}
                         multiline={data.height && true}
                         autoCapitalize='words'
                         onChangeText={newText => setText(newText)}
-                        onBlur ={() =>{
+                        onBlur={() => {
                             if (data.required && !checkRequired(text)) {
                                 alert("This is a Required Field")
                             }
@@ -87,21 +87,23 @@ const DisplayFields = () => {
                     />
                 </View>
             )}
-            <View style={{ 'padding': 20, 'textAlign': 'center'}}>
-                <Text> Police Report Made? </Text>
-                <RadioButtonRN
-                    data={[{'label': 'Yes'},{'label': 'No'}]}
-                    style={{'flexDirection': 'row', 'padding': 10, 'textAlign': 'end'}}
-                    selectedBtn={(e) => console.log(e)}
-                    circleSize={10}
-                    icon={
-                        <Icon
-                            name="check-circle"
-                            size={25}
-                            color="#bc7d9c"
-                        />
-                    }
-                />
+            <View style={{marginTop: 10}}>
+                <Text style={{fontSize: 16, textAlign: 'center'}}> Police Report Made?</Text>
+                <View style={{flexDirection: 'row', width: '80%'}}>
+                    <RadioButtonRN
+                        data={[{label: 'Yes'}, {label: 'No'}]}
+                        style={{flex: 1}}
+                        selectedBtn={(e) => console.log(e)}
+                        circleSize={20}
+                        icon={
+                            <Icon
+                                name="check-circle"
+                                size={25}
+                                color="#bc7d9c"
+                            />
+                        }
+                    />
+                </View>
             </View>
         </View>
 
@@ -114,7 +116,7 @@ const AutoAccidentPage = ({navigation}) => {
         <ScrollView style={styles.scrollContainer}>
             <View style={styles.container}>
                 <Text style={{fontSize: 36}}> Auto Accident Form</Text>
-                <DisplayFields />
+                <DisplayFields/>
                 <View>
                     <Button
                         title="Submit"

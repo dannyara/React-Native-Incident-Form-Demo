@@ -12,25 +12,25 @@ const Stack = createNativeStackNavigator();
 const FormButtons = ({navigation}) => {
     return (
         <View style={styles.formSelect}>
-            <Text style={[styles.title, {fontSize: 18}]}> Select an incident form below: </Text>
+            <Text style={[styles.title, {fontSize: 14}]}> Select an Incident Below:</Text>
             <View style={{margin: 20}}>
                 <Button
                     style={styles.buttons}
                     onPress={() => {
                         navigation.navigate('InjuryForm')
                     }}
-                    title={"Start Injury Form"}
+                    title={"New Injury Form"}
                 />
             </View>
-           <View style={{margin:20}}>
-               <Button
-                   style={styles.buttons}
-                   onPress={() => {
-                       navigation.navigate('AutoAccidentForm')
-                   }}
-                   title={"Start Auto Accident Form"}
-               />
-           </View>
+            <View style={{margin: 20}}>
+                <Button
+                    style={styles.buttons}
+                    onPress={() => {
+                        navigation.navigate('AutoAccidentForm')
+                    }}
+                    title={"New Auto Accident Form"}
+                />
+            </View>
 
         </View>
     );
@@ -57,7 +57,7 @@ const App = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator >
+            <Stack.Navigator>
                 <Stack.Screen
                     name="Home"
                     component={HomePage}
@@ -66,12 +66,12 @@ const App = () => {
                 <Stack.Screen
                     name={"InjuryForm"}
                     component={InjuryPage}
-                    options={{title: "Injury Form"}}
+                    options={{title: "New Incident"}}
                 />
                 <Stack.Screen
                     name={"AutoAccidentForm"}
                     component={AutoAccidentPage}
-                    options={{title: "Auto Accident Form"}}
+                    options={{title: "New Incident Form"}}
                 />
 
             </Stack.Navigator>

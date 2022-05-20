@@ -50,9 +50,9 @@ const fields = [
     },
     {
         'label': 'Date and time of Incident',
-        'placeholder': 'Enter Division Name',
+        'placeholder': 'mm/dd/yy - hh:mmPM/AM',
         'required': true,
-        'type': 'dropdown',
+        'type': 'select',
     },
     {
         'label': 'Part of body injured',
@@ -66,7 +66,7 @@ const fields = [
 const DisplayFields = () => {
     const [text, setText] = useState('')
     // Need to make many of these
-    return(
+    return (
         <View style={{width: '100%', alignItems: 'center'}}>
             {fields.map((data, index) =>
                 <View style={styles.fieldList}>
@@ -75,10 +75,11 @@ const DisplayFields = () => {
                         key={index}
                         value={data.text}
                         placeholder={data.placeholder}
-                        style={[styles.textInput, {height: data.height || 50} ]}
+                        style={[styles.textInput, {height: data.height || 50}]}
+                        autoCapitalize='words'
                         multiline={data.height && true}
                         onChangeText={newText => setText(newText)}
-                        onBlur ={() =>{
+                        onBlur={() => {
                             if (data.required && !checkRequired(text)) {
                                 // this.setStyle({color: 'black'})
                                 alert("This is a Required Field")
@@ -87,21 +88,23 @@ const DisplayFields = () => {
                     />
                 </View>
             )}
-            <View style={{ 'padding': 20, 'textAlign': 'center'}}>
-                <Text> Medical Treatment Sought?</Text>
-                <RadioButtonRN
-                    data={[{'label': 'Yes'},{'label': 'No'}]}
-                    style={{'flexDirection': 'row', 'padding': 10, 'textAlign': 'end'}}
-                    selectedBtn={(e) => console.log(e)}
-                    circleSize={16}
-                    icon={
-                        <Icon
-                            name="check-circle"
-                            size={25}
-                            color="#bc7d9c"
-                        />
-                    }
-                />
+            <View style={{marginTop: 10}}>
+                <Text style={{fontSize: 16, textAlign: 'center'}}> Medical Treatment Sought?</Text>
+                <View style={{flexDirection: 'row', width: '80%'}}>
+                    <RadioButtonRN
+                        data={[{'label': 'Yes'}, {'label': 'No'}]}
+                        style={{flex: 1}}
+                        selectedBtn={(e) => console.log(e)}
+                        circleSize={20}
+                        icon={
+                            <Icon
+                                name="check-circle"
+                                size={25}
+                                color="#bc7d9c"
+                            />
+                        }
+                    />
+                </View>
             </View>
         </View>
 
@@ -114,7 +117,7 @@ const InjuryPage = ({navigation}) => {
         <ScrollView style={styles.scrollContainer}>
             <View style={styles.container}>
                 <Text style={{fontSize: 36}}> Injury Form</Text>
-                <DisplayFields />
+                <DisplayFields/>
                 <View>
                     <Button
                         title="Submit"
@@ -136,6 +139,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#dddddd',
         alignItems: 'center',
         padding: 20,
+
 
     },
     scrollContainer: {
