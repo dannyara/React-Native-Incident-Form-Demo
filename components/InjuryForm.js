@@ -87,7 +87,7 @@ const DisplayFields = () => {
                     />
                 </View>
             )}
-            <View style={{alignItems: 'end'}}>
+            <View style={{ 'padding': 20, 'textAlign': 'center'}}>
                 <Text> Medical Treatment Sought?</Text>
                 <RadioButtonRN
                     data={[{'label': 'Yes'},{'label': 'No'}]}

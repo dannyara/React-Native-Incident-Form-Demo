@@ -77,7 +77,6 @@ const DisplayFields = () => {
                         placeholder={data.placeholder}
                         style={[styles.textInput, {height: data.height || 50} ]}
                         multiline={data.height && true}
-                        numberOfLines={data.height / 50}
                         autoCapitalize='words'
                         onChangeText={newText => setText(newText)}
                         onBlur ={() =>{
