@@ -1,38 +1,55 @@
-[{
-  "label": "Name of Employee Involved",
-  "placeholder": "Enter Full Name",
-  "required": true,
-  "type": "text-field",
-},
 {
-"label": "Incident Location",
-"placeholder": "Enter Address",
-"required": true,
-"type": "time-date"
-},
-{
-"label": "How Injury Occured",
-"placeholder": "Enter all relevant details",
-"required": true,
-"height": 100,
-"type": "text-field"
-},
-{
-"label": "Crew Leader Name",
-"placeholder": "Enter Full Name",
-"required": true,
-"type": "text-field"
-},
-{
-"label": "Direct Supervisor",
-"placeholder": "Enter Full Name",
-"required": true,
-"type": "text-field"
-},
-{
-"label": "Stanley Tree Division",
-"placeholder": "Enter Division Name",
-"required": true,
-"type": "dropdown"
-},
-]
+  "fields": [
+    {
+      "label": "Name of Employee Involved",
+      "placeholder": "Enter Full Name",
+      "required": true,
+      "type": "text-field",
+    },
+    {
+      "label": "Incident Location",
+      "placeholder": "Enter Address",
+      "required": true,
+      "height": 60,
+      "type": "text-field",
+    },
+    {
+      "label": "How Injury Occurred",
+      "placeholder": "Enter all relevant details",
+      "required": true,
+      "height": 100,
+      "type": "text-field"
+    },
+    {
+      "label": "Crew Leader Name",
+      "placeholder": "Enter Full Name",
+      "required": true,
+      "type": "text-field"
+    },
+    {
+      "label": "Direct Supervisor",
+      "placeholder": "Enter Full Name",
+      "required": true,
+      "type": "text-field"
+    },
+    {
+      "label": "Stanley Tree Division",
+      "placeholder": "Enter Division Name",
+      "required": true,
+      "type": "dropdown"
+    },
+    {
+      "label": "Date and time of Incident",
+      "placeholder": "mm/dd/yy - hh:mmPM/AM",
+      "required": true,
+      "type": "select"
+    },
+    {
+      "label": "Part of body injured",
+      "placeholder": "Enter Division Name",
+      "required": true,
+      "type": "dropdown"
+    }
+
+  ]
+}

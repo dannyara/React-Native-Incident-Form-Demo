@@ -1,18 +1,16 @@
 import {StatusBar} from 'expo-status-bar';
 import * as React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {Button, Image, TextInput} from "react-native";
+import {StyleSheet, View} from 'react-native';
+import {Button, Image} from "react-native";
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import InjuryPage from "./components/InjuryForm";
 import AutoAccidentPage from "./components/AutoAccidentForm";
 
 const Stack = createNativeStackNavigator();
-
 const FormButtons = ({navigation}) => {
     return (
         <View style={styles.formSelect}>
-            <Text style={[styles.title, {fontSize: 14}]}> Select an Incident Below:</Text>
             <View style={{margin: 20}}>
                 <Button
                     style={styles.buttons}
@@ -31,7 +29,6 @@ const FormButtons = ({navigation}) => {
                     title={"New Auto Accident Form"}
                 />
             </View>
-
         </View>
     );
 
@@ -39,7 +36,7 @@ const FormButtons = ({navigation}) => {
 const HomePage = ({navigation}) => {
     return (
         <View style={[styles.container, {flexDirection: 'column'}]}>
-
+            {/*use phone's native status bar settings*/}
             <StatusBar style="auto"/>
             <View style={[styles.header, {flex: 8}]}>
                 <Image style={styles.image}
@@ -54,7 +51,6 @@ const HomePage = ({navigation}) => {
 }
 
 const App = () => {
-
     return (
         <NavigationContainer>
             <Stack.Navigator>
@@ -80,9 +76,7 @@ const App = () => {
     );
 }
 
-
 export default App
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -102,7 +96,6 @@ const styles = StyleSheet.create({
     formSelect: {
         justifyContent: 'space-between',
         alignItems: 'center',
-
     },
     buttons: {
         margin: 20,
