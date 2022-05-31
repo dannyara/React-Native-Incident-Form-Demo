@@ -6,6 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import InjuryPage from "./components/InjuryForm";
 import AutoAccidentPage from "./components/AutoAccidentForm";
+import COLORS from "./assets/colors";
 
 const Stack = createNativeStackNavigator();
 const FormButtons = ({navigation}) => {
@@ -80,7 +81,7 @@ export default App
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#dddddd',
+        backgroundColor: COLORS.offWhite,
         alignItems: 'center',
 
     },
