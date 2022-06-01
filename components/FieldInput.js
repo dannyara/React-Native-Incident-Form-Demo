@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import COLORS from "../assets/colors";
 
 const FieldInput = ({label, error, height, onFocus=() => {}, ...props}) => {
@@ -10,7 +10,7 @@ const FieldInput = ({label, error, height, onFocus=() => {}, ...props}) => {
          <TextInput {...props}
                     style={[styles.input,
                         {borderColor: error ? COLORS.red :
-                                isFocused ? COLORS.darkBlue : COLORS.maroon, alignItems: 'center',
+                                isFocused ? COLORS.blue : COLORS.darkGray, alignItems: 'center',
                             height: 50 || {height}, color: COLORS.darkBlue}]}
              // key={index}
              // value={getValue(userInput, index)}
