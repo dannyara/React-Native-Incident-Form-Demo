@@ -140,10 +140,11 @@ const AutoAccidentForm = ({navigation}) => {
                     autoCapitalize='words'
                     onChangeText={(text) => handleOnChange('crewLeaderName', text)}
                 />
+                {/*Picker is currently unsupported in Expo: https://github.com/react-native-picker/picker/issues/45*/}
                 <Dropdown
                     label="Stanley Tree Division"
                     selectedValue={input.division}
-                    onValueChange={(division, index) =>
+                    onValueChange={(division) =>
                         handleOnChange('division', division)
                     }
                 />
@@ -197,7 +198,6 @@ const styles = StyleSheet.create({
         flex: 1
     },
     scrollContainer: {
-        flex: 1,
         paddingTop: 50,
         paddingBottom: 20,
         paddingHorizontal: 25,

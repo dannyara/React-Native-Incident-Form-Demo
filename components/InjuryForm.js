@@ -6,15 +6,16 @@ import {
     StyleSheet,
     Text,
     View,
-    Picker // not supported with expo
 } from 'react-native';
 import * as React from "react";
 import {useState} from "react";
 import COLORS from "../assets/colors";
 import FieldInput from "./FieldInput";
 import Dropdown from "./Dropdown";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import DatePicker from "./DatePicker";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 const InjuryForm = ({navigation}) => {
     const [errors, setErrors] = useState({})
@@ -133,6 +134,10 @@ const InjuryForm = ({navigation}) => {
                     onChangeText={(text) => handleOnChange('incidentDateTime', text)}
                 />
 
+                {/*<DatePicker value={new Date()} label='pick a date'/>*/}
+                {/*<RNDateTimePicker value={new Date()} />*/}
+
+
                 <FieldInput
                     label='Crew Leader Name'
                     placeholder='Enter the full name of the crew leader'
@@ -147,13 +152,13 @@ const InjuryForm = ({navigation}) => {
                     error={errors.supervisorName}
                     onChangeText={(text) => handleOnChange('supervisorName', text)}
                 />
-                <Dropdown
-                    label="Stanley Tree Division"
-                    selectedValue={input.division}
-                    onValueChange={(division, index) =>
-                        handleOnChange('division', division)
-                    }
-                />
+                {/*<Dropdown*/}
+                {/*    label="Stanley Tree Division"*/}
+                {/*    selectedValue={input.division}*/}
+                {/*    onValueChange={(division, index) =>*/}
+                {/*        handleOnChange('division', division)*/}
+                {/*    }*/}
+                {/*/>*/}
                 <FieldInput
                     label='Injury Details'
                     placeholder='Please explain in detail how injury occurred'
@@ -202,7 +207,6 @@ const styles = StyleSheet.create({
         flex: 1
     },
     scrollContainer: {
-        flex: 1,
         paddingTop: 50,
         paddingBottom: 20,
         paddingHorizontal: 25,
