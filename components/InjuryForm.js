@@ -26,7 +26,7 @@ const InjuryForm = ({navigation}) => {
         if (!input.employeeName) { //if employee name is empty
             handleError('name', 'This is a required field')
             valid = false
-        } else if (!input.employeeName.match(/\w{2,}\s\w{2,}/)) { // if name isn't first + last name
+        } else if (!input.employeeName.match(/\w{2,}\s\w/)) { // if name isn't first + last name
             handleError('name', 'Please enter a full name, ie. John Doe')
             valid = false
         }

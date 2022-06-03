@@ -25,7 +25,7 @@ const AutoAccidentForm = ({navigation}) => {
         if (!input.employeeName) { //if employee name is empty
             handleError('name', 'This is a required field')
             valid = false
-        } else if (!input.employeeName.match(/\w{2,}\s\w{2,}/)) { // if name isn't first + last name
+        } else if (!input.employeeName.match(/\w{2,}\s\w/)) { // if name isn't first + last name
             handleError('name', 'Please enter a full name, ie. John Doe')
             valid = false
         }
@@ -122,7 +122,7 @@ const AutoAccidentForm = ({navigation}) => {
                 />
                 <FieldInput
                     label='Date and time of Incident'
-                    placeholder='Pmm/dd/yy - hh:mmPM/AM'
+                    placeholder='mm/dd/yy - hh:mmPM/AM'
                     error={errors.incidentDateTime}
                     onChangeText={(text) => handleOnChange('incidentDateTime', text)}
                 />
