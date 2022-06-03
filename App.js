@@ -8,7 +8,7 @@ import InjuryPage from "./components/InjuryForm";
 import AutoAccidentPage from "./components/AutoAccidentForm";
 import COLORS from "./assets/colors";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator(); // stack allows for navigation
 const FormButtons = ({navigation}) => {
     return (
         <View style={styles.formSelect}>
@@ -16,7 +16,7 @@ const FormButtons = ({navigation}) => {
                 <Button
                     style={styles.buttons}
                     onPress={() => {
-                        navigation.navigate('InjuryForm')
+                        navigation.navigate('InjuryForm') //navigates to Injury Form
                     }}
                     title={"New Injury Form"}
                 />
@@ -25,7 +25,7 @@ const FormButtons = ({navigation}) => {
                 <Button
                     style={styles.buttons}
                     onPress={() => {
-                        navigation.navigate('AutoAccidentForm')
+                        navigation.navigate('AutoAccidentForm') // Navigates to auto accident form
                     }}
                     title={"New Auto Accident Form"}
                 />
@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
 
     },
     header: {
-
         alignItems: 'center',
         justifyContent: 'flex-start'
     },

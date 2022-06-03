@@ -1,57 +1,3 @@
-const fields = [
-    {
-        'label': 'Name of Employee Involved',
-        'placeholder': 'Enter Full Name',
-        'required': true,
-        'type': 'text-field',
-    },
-    {
-        'label': 'Incident Location',
-        'placeholder': 'Enter Address',
-        'required': true,
-        'height': 60,
-        'type': 'time-date',
-    },
-    {
-        'label': 'STS Vehicle Involved',
-        'placeholder': 'Enter STS Equipment Number',
-        'required': true,
-        'type': 'text-field',
-    },
-    {
-        'label': 'Please Describe the Details of the Incident',
-        'placeholder': 'Enter Incident Details',
-        'height': 100,
-        'required': true,
-        'type': 'text-field',
-    },
-
-    {
-        'label': 'Crew Leader Name',
-        'placeholder': 'Enter Full Name',
-        'required': true,
-        'type': 'text-field',
-    },
-    {
-        'label': 'Direct Supervisor',
-        'placeholder': 'Enter Full Name',
-        'required': true,
-        'type': 'text-field',
-    },
-    {
-        'label': 'Stanley Tree Division',
-        'placeholder': 'Enter Division Name',
-        'required': true,
-        'type': 'dropdown',
-    },
-    {
-        'label': 'Police Report Number',
-        'placeholder': 'Enter police report details',
-        'required': true,
-        'type': 'text-field',
-    },
-]
-
 import {
     Button,
     Keyboard,
@@ -63,8 +9,6 @@ import {
 } from 'react-native';
 import * as React from "react";
 import {useState} from "react";
-import RadioButtonRN from 'radio-buttons-react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import COLORS from "../assets/colors";
 import FieldInput from "./FieldInput";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -107,6 +51,10 @@ const AutoAccidentForm = ({navigation}) => {
         }
         if (!input.policeReportMade) {
             handleError('policeReportMade', 'This is a required field')
+            valid = false
+        }
+        if (!input.division) {
+            handleError('division', 'This is a required field')
             valid = false
         }
         if (valid) {
@@ -159,6 +107,7 @@ const AutoAccidentForm = ({navigation}) => {
                     label='Name of Employee Involved'
                     placeholder='Enter full Name'
                     error={errors.name}
+                    autoCapitalize='words'
                     onChangeText={(text) => handleOnChange('employeeName', text)}
                 />
                 <FieldInput
@@ -180,12 +129,14 @@ const AutoAccidentForm = ({navigation}) => {
                     label='Crew Leader Name'
                     placeholder='Enter the full name of the crew leader'
                     error={errors.crewLeaderName}
+                    autoCapitalize='words'
                     onChangeText={(text) => handleOnChange('crewLeaderName', text)}
                 />
                 <FieldInput
                     label='Direct Supervisor'
                     placeholder='Enter full name of the supervisor'
                     error={errors.supervisorName}
+                    autoCapitalize='words'
                     onChangeText={(text) => handleOnChange('crewLeaderName', text)}
                 />
                 <FieldInput
@@ -212,6 +163,7 @@ const AutoAccidentForm = ({navigation}) => {
                     label='STS Vehicle Involved'
                     placeholder='Please enter all that apply'
                     error={errors.vehicleInvolved}
+                    autoCapitalize='words'
                     onChangeText={(text) => handleOnChange('vehicleInvolved', text)}
                 />
             </View>
