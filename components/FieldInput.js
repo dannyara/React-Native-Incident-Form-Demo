@@ -26,11 +26,10 @@ const FieldInput = ({label, error, height, onFocus=() => {}, ...props}) => { // 
 
             {
                 error && (
-                    <Text>
+                    <Text style={styles.errorInfo}>
                         {error}
                     </Text>
                 )}
-
 
         </View>
     )
@@ -47,6 +46,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.light,
         flexDirection: 'row',
         paddingHorizontal: 15,
+        paddingVertical: 5,
         borderWidth: 1,
     },
     errorInfo: {

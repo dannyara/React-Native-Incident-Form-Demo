@@ -71,6 +71,7 @@ const AutoAccidentForm = ({navigation}) => {
         try {
             const val = JSON.stringify(input, 0, 2)
             console.log(val)
+            alert('output: ' + val)
             await AsyncStorage.setItem('AutoAccidentForm', val)
         } catch (e) {
             alert('an unexpected error has occurred:', '\n', e)
@@ -144,9 +145,10 @@ const AutoAccidentForm = ({navigation}) => {
                 <Dropdown
                     label="Stanley Tree Division"
                     selectedValue={input.division}
-                    onValueChange={(division) =>
+                    onValueChange={(division, index) =>
                         handleOnChange('division', division)
                     }
+                    error={errors.division}
                 />
                 <FieldInput
                     label='Incident Details'

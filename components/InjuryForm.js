@@ -13,16 +13,12 @@ import COLORS from "../assets/colors";
 import FieldInput from "./FieldInput";
 import Dropdown from "./Dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import DatePicker from "./DatePicker";
-import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 const InjuryForm = ({navigation}) => {
     const [errors, setErrors] = useState({})
 
 
     const validate = () => {
-        Keyboard.dismiss()
         //valid variable to prevent page changing when validation
         let valid = true
         setErrors({}) // restart errors with every render
@@ -75,6 +71,7 @@ const InjuryForm = ({navigation}) => {
         try {
             const val = JSON.stringify(input, 0, 2)
             console.log(val)
+            alert('output: ' + val)
             // await storage for storing the value to be sent to the backend later
             await AsyncStorage.setItem('injuryForm', val)
             //TODO: send http request to backend with data
@@ -152,13 +149,14 @@ const InjuryForm = ({navigation}) => {
                     error={errors.supervisorName}
                     onChangeText={(text) => handleOnChange('supervisorName', text)}
                 />
-                {/*<Dropdown*/}
-                {/*    label="Stanley Tree Division"*/}
-                {/*    selectedValue={input.division}*/}
-                {/*    onValueChange={(division, index) =>*/}
-                {/*        handleOnChange('division', division)*/}
-                {/*    }*/}
-                {/*/>*/}
+                <Dropdown
+                    label="Stanley Tree Division"
+                    selectedValue={input.division}
+                    onValueChange={(division, index) =>
+                        handleOnChange('division', division)
+                    }
+                    error={errors.division}
+                />
                 <FieldInput
                     label='Injury Details'
                     placeholder='Please explain in detail how injury occurred'
@@ -175,7 +173,7 @@ const InjuryForm = ({navigation}) => {
                     onChangeText={(text) => handleOnChange('bodyPartInjured', text)}
                 />
                 <FieldInput
-                    label='Part of body injured'
+                    label='Nature of Injury'
                     placeholder='Please enter all that apply'
                     error={errors.typeOfInjury}
                     onChangeText={(text) => handleOnChange('typeOfInjury', text)}
