@@ -12,6 +12,7 @@ import {useState} from "react";
 import COLORS from "../assets/colors";
 import FieldInput from "./FieldInput";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Dropdown from "./Dropdown";
 
 const AutoAccidentForm = ({navigation}) => {
     // json object of fields to be used in the form
@@ -139,11 +140,12 @@ const AutoAccidentForm = ({navigation}) => {
                     autoCapitalize='words'
                     onChangeText={(text) => handleOnChange('crewLeaderName', text)}
                 />
-                <FieldInput
-                    label='Stanley Tree Division'
-                    placeholder='Enter Division name'
-                    error={errors.division}
-                    onChangeText={(text) => handleOnChange('division', text)}
+                <Dropdown
+                    label="Stanley Tree Division"
+                    selectedValue={input.division}
+                    onValueChange={(division, index) =>
+                        handleOnChange('division', division)
+                    }
                 />
                 <FieldInput
                     label='Incident Details'

@@ -5,12 +5,15 @@ import {
     ScrollView,
     StyleSheet,
     Text,
-    View
+    View,
+    Picker // not supported with expo
 } from 'react-native';
 import * as React from "react";
 import {useState} from "react";
 import COLORS from "../assets/colors";
 import FieldInput from "./FieldInput";
+import Dropdown from "./Dropdown";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const InjuryForm = ({navigation}) => {
@@ -90,7 +93,7 @@ const InjuryForm = ({navigation}) => {
         incidentDateTime: '',
         bodyPartInjured: '',
         typeOfInjury: '',
-        medicalTreatmentSought: false
+        medicalTreatmentSought: ''
     })
     //This function handles updating the user input object, takes the field name and the text to update
     const handleOnChange = (field, text) => {
@@ -144,6 +147,13 @@ const InjuryForm = ({navigation}) => {
                     error={errors.supervisorName}
                     onChangeText={(text) => handleOnChange('supervisorName', text)}
                 />
+                <Dropdown
+                    label="Stanley Tree Division"
+                    selectedValue={input.division}
+                    onValueChange={(division, index) =>
+                        handleOnChange('division', division)
+                    }
+                />
                 <FieldInput
                     label='Injury Details'
                     placeholder='Please explain in detail how injury occurred'
@@ -152,12 +162,7 @@ const InjuryForm = ({navigation}) => {
                     multiline={true}
                     onChangeText={(text) => handleOnChange('injuryDetails', text)}
                 />
-                <FieldInput
-                    label='Stanley Tree Division'
-                    placeholder='Enter Division name'
-                    error={errors.division}
-                    onChangeText={(text) => handleOnChange('division', text)}
-                />
+
                 <FieldInput
                     label='Part of body injured'
                     placeholder='Please enter all that apply'
