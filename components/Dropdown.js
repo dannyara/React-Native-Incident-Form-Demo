@@ -11,7 +11,6 @@ const Dropdown = ({label, error, height, onFocus=() => {}, ...props}) => {  // r
             <View style={[styles.input, {borderColor: error ? COLORS.red : COLORS.darkGray,}]}>
                 <Picker {...props}
                         style={styles.dropdown}
-                        ColorValue={COLORS.blue}
                 >
                     <Picker.Item label="Select a STS Division" style={{textColor: COLORS.gray}} value=""/>
                     <Picker.Item label="Commercial" value="Commercial"/>

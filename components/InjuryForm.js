@@ -43,9 +43,17 @@ const InjuryForm = ({navigation}) => {
             handleError('crewLeaderName', 'This is a required field')
             valid = false
         }
-        if (!input.incidentDateTime) {
-            handleError('incidentDateTime', 'This is a required field')
+        if (!input.incidentTime) {
+            handleError('incidentTime', 'This is a required field')
             valid = false
+        } else if(!input.incidentTime.match(/((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/)) {
+            handleError('incidentTime', 'Please enter a valid time in hh:mm AM/PM Format. ie. 8:15 AM')
+        }
+        if (!input.incidentDate) {
+            handleError('incidentDate', 'This is a required field')
+            valid = false
+        } else if(!input.incidentDate.match(/(0\d{1}|1[0-2])\/([0-2]\d{1}|3[0-1])\/(20|21)\d{2}/)) {
+            handleError('incidentDate', 'Please enter a valid date in mm/dd/yyyy format ie. 06/08/2022')
         }
         if (!input.typeOfInjury) {
             handleError('typeOfInjury', 'This is a required field')
@@ -88,7 +96,8 @@ const InjuryForm = ({navigation}) => {
         crewLeaderName: '',
         division: '',
         supervisorName: '',
-        incidentDateTime: '',
+        incidentDate: '',
+        incidentTime: '',
         bodyPartInjured: '',
         typeOfInjury: '',
         medicalTreatmentSought: ''
@@ -125,10 +134,16 @@ const InjuryForm = ({navigation}) => {
                     onChangeText={(text) => handleOnChange('incidentLocation', text)}
                 />
                 <FieldInput
+                    label='Date of Incident'
+                    placeholder='Please enter date in MM/DD/YYYY format'
+                    error={errors.incidentDate}
+                    onChangeText={(text) => handleOnChange('incidentDate', text)}
+                />
+                <FieldInput
                     label='Date and time of Incident'
-                    placeholder='Pmm/dd/yy - hh:mmPM/AM'
-                    error={errors.incidentDateTime}
-                    onChangeText={(text) => handleOnChange('incidentDateTime', text)}
+                    placeholder='Please enter in HH:MM PM/AM format'
+                    error={errors.incidentTime}
+                    onChangeText={(text) => handleOnChange('incidentTime', text)}
                 />
 
                 {/*<DatePicker value={new Date()} label='pick a date'/>*/}
