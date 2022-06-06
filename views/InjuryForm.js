@@ -5,23 +5,24 @@ import {
     ScrollView,
     StyleSheet,
     Text,
-    View
+    View,
 } from 'react-native';
 import * as React from "react";
 import {useState} from "react";
 import COLORS from "../assets/colors";
-import FieldInput from "./FieldInput";
+import FieldInput from "../components/FieldInput";
+import Dropdown from "../components/Dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Dropdown from "./Dropdown";
 
-const AutoAccidentForm = ({navigation}) => {
-    // json object of fields to be used in the form
+const InjuryForm = ({navigation}) => {
     const [errors, setErrors] = useState({})
+
+
     const validate = () => {
-        Keyboard.dismiss()
-        //valid variable for live style validation
+        //valid variable to prevent page changing when validation
         let valid = true
-        setErrors({})
+        setErrors({}) // restart errors with every render
+        // validation switch case
         if (!input.employeeName) { //if employee name is empty
             handleError('name', 'This is a required field')
             valid = false
@@ -33,13 +34,22 @@ const AutoAccidentForm = ({navigation}) => {
             handleError('location', 'This is a required field')
             valid = false
         }
-        if (!input.incidentDetails) {
-            handleError('incidentDetails', 'This is a required field, please provide all details')
+        if (!input.injuryDetails) {
+            handleError('injuryDetails', 'This is a required field, please provide all details')
             valid = false
         }
-
         if (!input.crewLeaderName) {
             handleError('crewLeaderName', 'This is a required field')
+            valid = false
+        } else if (!input.crewLeaderName.match(/\w{2,}\s\w/)) { // if name isn't first + last name
+            handleError('crewLeaderName', 'Please enter a full name, ie. John Doe')
+            valid = false
+        }
+        if (!input.supervisorName) {
+            handleError('supervisorName', 'This is a required field')
+            valid = false
+        } else if (!input.supervisorName.match(/\w{2,}\s\w/)) { // if name isn't first + last name
+            handleError('supervisorName', 'Please enter a full name, ie. John Doe')
             valid = false
         }
         if (!input.incidentTime) {
@@ -54,12 +64,12 @@ const AutoAccidentForm = ({navigation}) => {
         } else if(!input.incidentDate.match(/(0\d{1}|1[0-2])\/([0-2]\d{1}|3[0-1])\/(20|21)\d{2}/)) {
             handleError('incidentDate', 'Please enter a valid date in mm/dd/yyyy format ie. 06/08/2022')
         }
-        if (!input.vehicleInvolved) {
-            handleError('vehicleInvolved', 'This is a required field')
+        if (!input.typeOfInjury) {
+            handleError('typeOfInjury', 'This is a required field')
             valid = false
         }
-        if (!input.policeReportMade) {
-            handleError('policeReportMade', 'This is a required field')
+        if (!input.bodyPartInjured) {
+            handleError('bodyPartInjured', 'This is a required field')
             valid = false
         }
         if (!input.division) {
@@ -68,9 +78,10 @@ const AutoAccidentForm = ({navigation}) => {
         }
         if (valid) {
             submit().then(r => {
-                Keyboard.dismiss()
-                alert('Auto Accident Form submitted successfully!')
-                console.log(r)
+                const val = JSON.stringify(input, 0, 2)
+                alert('output: ' + val)
+                alert('Injury Form submitted successfully!')
+                // return user back to home
                 navigation.pop()
             })
         }
@@ -79,24 +90,27 @@ const AutoAccidentForm = ({navigation}) => {
         try {
             const val = JSON.stringify(input, 0, 2)
             console.log(val)
-            alert('output: ' + val)
-            await AsyncStorage.setItem('AutoAccidentForm', val)
+            // await storage for storing the value to be sent to the backend later
+            await AsyncStorage.setItem('injuryForm', val)
+            //TODO: send http request to backend with data
         } catch (e) {
-            alert('an unexpected error has occurred:', '\n', e)
+            alert('an unexpected error has occurred, see logs')
+            console.log(e)
         }
     }
 
     const [input, setInput] = useState({
         employeeName: '',
         incidentLocation: '',
-        incidentDetails: '',
+        injuryDetails: '',
         crewLeaderName: '',
         division: '',
         supervisorName: '',
         incidentDate: '',
         incidentTime: '',
-        vehicleInvolved: '',
-        policeReportMade: false,
+        bodyPartInjured: '',
+        typeOfInjury: '',
+        medicalTreatmentSought: ''
     })
     //This function handles updating the user input object, takes the field name and the text to update
     const handleOnChange = (field, text) => {
@@ -112,13 +126,13 @@ const AutoAccidentForm = ({navigation}) => {
 
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <Text style={styles.label}> Auto Accident Form</Text>
+            <Text style={styles.label}> Injury Form</Text>
             <View>
                 <FieldInput
                     label='Name of Employee Involved'
                     placeholder='Enter full Name'
-                    error={errors.name}
                     autoCapitalize='words'
+                    error={errors.name}
                     onChangeText={(text) => handleOnChange('employeeName', text)}
                 />
                 <FieldInput
@@ -142,21 +156,24 @@ const AutoAccidentForm = ({navigation}) => {
                     onChangeText={(text) => handleOnChange('incidentTime', text)}
                 />
 
+                {/*<DatePicker value={new Date()} label='pick a date'/>*/}
+                {/*<RNDateTimePicker value={new Date()} />*/}
+
+
                 <FieldInput
                     label='Crew Leader Name'
                     placeholder='Enter the full name of the crew leader'
-                    error={errors.crewLeaderName}
                     autoCapitalize='words'
+                    error={errors.crewLeaderName}
                     onChangeText={(text) => handleOnChange('crewLeaderName', text)}
                 />
                 <FieldInput
                     label='Direct Supervisor'
                     placeholder='Enter full name of the supervisor'
-                    error={errors.supervisorName}
                     autoCapitalize='words'
-                    onChangeText={(text) => handleOnChange('crewLeaderName', text)}
+                    error={errors.supervisorName}
+                    onChangeText={(text) => handleOnChange('supervisorName', text)}
                 />
-                {/*Picker is currently unsupported in Expo: https://github.com/react-native-picker/picker/issues/45*/}
                 <Dropdown
                     label="Stanley Tree Division"
                     selectedValue={input.division}
@@ -166,25 +183,25 @@ const AutoAccidentForm = ({navigation}) => {
                     error={errors.division}
                 />
                 <FieldInput
-                    label='Incident Details'
-                    placeholder='Please explain in detail how the accident occurred'
-                    error={errors.incidentDetails}
+                    label='Injury Details'
+                    placeholder='Please explain in detail how injury occurred'
+                    error={errors.injuryDetails}
                     height={120}
                     multiline={true}
-                    onChangeText={(text) => handleOnChange('incidentDetails', text)}
+                    onChangeText={(text) => handleOnChange('injuryDetails', text)}
+                />
+
+                <FieldInput
+                    label='Part of body injured'
+                    placeholder='Please enter all that apply'
+                    error={errors.bodyPartInjured}
+                    onChangeText={(text) => handleOnChange('bodyPartInjured', text)}
                 />
                 <FieldInput
-                    label='Police Report Made'
+                    label='Nature of Injury'
                     placeholder='Please enter all that apply'
-                    error={errors.policeReportMade}
-                    onChangeText={(text) => handleOnChange('policeReportMade', text)}
-                />
-                <FieldInput
-                    label='STS Vehicle Involved'
-                    placeholder='Please enter all that apply'
-                    error={errors.vehicleInvolved}
-                    autoCapitalize='words'
-                    onChangeText={(text) => handleOnChange('vehicleInvolved', text)}
+                    error={errors.typeOfInjury}
+                    onChangeText={(text) => handleOnChange('typeOfInjury', text)}
                 />
             </View>
             <View style={styles.buttonContainer}>
@@ -200,15 +217,13 @@ const AutoAccidentForm = ({navigation}) => {
     )
 }
 
-const AutoAccidentPage = ({navigation}) => {
+const InjuryPage = ({navigation}) => {
     return (
         <SafeAreaView style={styles.container}>
-            <AutoAccidentForm navigation={navigation}/>
+            <InjuryForm navigation={navigation}/>
         </SafeAreaView>
     );
 }
-
-
 const styles = StyleSheet.create({
     container: {
         backgroundColor: COLORS.white,
@@ -254,4 +269,4 @@ const styles = StyleSheet.create({
         fontSize: 18
     }
 });
-export default AutoAccidentPage
+export default InjuryPage

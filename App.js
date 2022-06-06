@@ -4,8 +4,8 @@ import {StyleSheet, View} from 'react-native';
 import {Button, Image} from "react-native";
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import InjuryPage from "./components/InjuryForm";
-import AutoAccidentPage from "./components/AutoAccidentForm";
+import InjuryPage from "./views/InjuryForm";
+import AutoAccidentPage from "./views/AutoAccidentForm";
 import COLORS from "./assets/colors";
 
 const Stack = createNativeStackNavigator(); // stack allows for navigation
