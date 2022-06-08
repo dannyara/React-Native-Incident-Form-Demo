@@ -14,7 +14,7 @@ import FieldInput from "../components/FieldInput";
 import Dropdown from "../components/Dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import DateTimePicker from "../components/DateTimePicker";
+import DTPicker from "../components/DTPicker";
 const InjuryForm = ({navigation}) => {
     const [errors, setErrors] = useState({})
 
@@ -108,8 +108,8 @@ const InjuryForm = ({navigation}) => {
         crewLeaderName: '',
         division: '',
         supervisorName: '',
-        incidentDate: '',
-        incidentTime: '',
+        incidentDate: null,
+        incidentTime: null,
         bodyPartInjured: '',
         typeOfInjury: '',
         medicalTreatmentSought: ''
@@ -146,21 +146,21 @@ const InjuryForm = ({navigation}) => {
                     onChangeText={(text) => handleOnChange('incidentLocation', text)}
                 />
 
-                <DateTimePicker
+                <DTPicker
                     value={input.incidentDate || new Date()}
                     mode='date'
-                    data={input.incidentDate}
+                    d={input.incidentDate}
                     buttonHeader={'Select Date'}
                     label='Date of Incident'
-                    onChange={(event, newDate) => {
+                    changeDate={(newDate) => {
                         handleOnChange('incidentDate', newDate)
                     }}
                     />
 
 
-                <DateTimePicker value={input.incidentTime || new Date()} mode='time' buttonHeader={'Select Time'} label='Time of Incident'
-                                onChange={(newTime) => handleOnChange('incidentTime', newTime)}
-                                data={input.incidentTime}
+                <DTPicker value={input.incidentTime || new Date()} mode='time' buttonHeader={'Select Time'} label='Time of Incident'
+                          changeDate={(newTime) => handleOnChange('incidentTime', newTime)}
+                          t={input.incidentTime}
                 />
 
                 <FieldInput

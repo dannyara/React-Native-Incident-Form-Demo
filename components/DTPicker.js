@@ -2,11 +2,12 @@ import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 // import { Picker } from 'react-native'  // not supported with expo
 //import {Picker} from '@react-native-picker/picker';
 import COLORS from "../assets/colors";
-import RNDateTimePicker from "@react-native-community/datetimepicker"; //#TODO: works on mobile but not in web
+import DateTimePicker from "@react-native-community/datetimepicker"; //#TODO: works on mobile but not in web
 import {useState} from "react";
 
-const DateTimePicker = ({data, label, buttonHeader, mode, onChange = () => {}, ...props}) => {  // receive props that can be configured when called
+const DTPicker = ({d,t, label, buttonHeader, mode, changeDate = () => {}, ...props}) => {  // receive props that can be configured when called
     const [show, setShow] = useState(false);
+    const [date, setDate] = useState(new Date());
     const showPicker = () => {
         setShow(true)
     };
@@ -20,21 +21,23 @@ const DateTimePicker = ({data, label, buttonHeader, mode, onChange = () => {}, .
                 <View style={{maxWidth: '60%'}}>
                     <DateTimePicker
                         {...props}
-                          onChange={() => { //on focus means when user clicks into a field
+                          onChange={(event, selectedDate) => { //on focus means when user clicks into a field
                               setShow(false)
-                              onChange()
+                              changeDate(selectedDate)
+                              setDate(selectedDate)
                           }}
                           mode={mode}
                     />
                 </View>
             )}
 
-            {/*{data && (*/}
-            {/*        <Text>*/}
-            {/*            {data}*/}
-            {/*        </Text>*/}
-            {/*    )}*/}
-            <Text>{data}</Text>
+            {d && (
+                <Text style={styles.dateTimeInfo}>{date.getMonth() +'/'+ date.getDate() + '/' + date.getFullYear()}</Text>
+                )}
+            {t && (
+                <Text style={styles.dateTimeInfo}>{date.getHours() +':'+ date.getMinutes()}</Text>
+            )}
+
 
         </View>
     )
@@ -48,7 +51,18 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: COLORS.darkGray
     },
+    errorInfo: {
+        color: COLORS.red,
+        fontSize: 14,
+        marginTop: 10
+    },
+    dateTimeInfo: {
+        color: COLORS.darkBlue,
+        paddingHorizontal: 20,
+        fontSize: 14,
+        marginTop: 10
+    }
 })
 
 
-export default DateTimePicker
+export default DTPicker
