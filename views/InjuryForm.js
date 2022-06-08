@@ -4,7 +4,7 @@ import {
     SafeAreaView,
     ScrollView,
     StyleSheet,
-    Text,
+    Text, TouchableOpacity,
     View,
 } from 'react-native';
 import * as React from "react";
@@ -53,18 +53,18 @@ const InjuryForm = ({navigation}) => {
             handleError('supervisorName', 'Please enter a full name, ie. John Doe')
             valid = false
         }
-        // if (!input.incidentTime) {
-        //     handleError('incidentTime', 'This is a required field')
-        //     valid = false
+        if (!input.incidentTime) {
+            handleError('incidentTime', 'This is a required field')
+            valid = false
         // } else if(!input.incidentTime.match(/((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/)) {
         //     handleError('incidentTime', 'Please enter a valid time in hh:mm AM/PM Format. ie. 8:15 AM')
-        // }
-        // if (!input.incidentDate) {
-        //     handleError('incidentDate', 'This is a required field')
-        //     valid = false
+        }
+        if (!input.incidentDate) {
+            handleError('incidentDate', 'This is a required field')
+            valid = false
         // } else if(!input.incidentDate.match(/(0\d{1}|1[0-2])\/([0-2]\d{1}|3[0-1])\/(20|21)\d{2}/)) {
         //     handleError('incidentDate', 'Please enter a valid date in mm/dd/yyyy format ie. 06/08/2022')
-        // }
+        }
         if (!input.typeOfInjury) {
             handleError('typeOfInjury', 'This is a required field')
             valid = false
@@ -149,18 +149,22 @@ const InjuryForm = ({navigation}) => {
                 <DTPicker
                     value={input.incidentDate || new Date()}
                     mode='date'
-                    d={input.incidentDate}
+                    dateInput={input.incidentDate}
                     buttonHeader={'Select Date'}
                     label='Date of Incident'
+                    error={errors.incidentDate}
                     changeDate={(newDate) => {
-                        handleOnChange('incidentDate', newDate)
+                        handleOnChange('incidentDate', (newDate.getMonth() + '/' + newDate.getDate() + '/' + newDate.getFullYear()))
                     }}
                     />
 
 
-                <DTPicker value={input.incidentTime || new Date()} mode='time' buttonHeader={'Select Time'} label='Time of Incident'
-                          changeDate={(newTime) => handleOnChange('incidentTime', newTime)}
-                          t={input.incidentTime}
+                <DTPicker
+                    value={input.incidentTime || new Date()}
+                    mode='time' buttonHeader={'Select Time'} label='Time of Incident'
+                    changeDate={(newTime) => handleOnChange('incidentTime', newTime.getHours() + ':' + newTime.getMinutes())}
+                    error={errors.incidentTime}
+                    timeInput={input.incidentTime}
                 />
 
                 <FieldInput
@@ -234,6 +238,8 @@ const InjuryPage = ({navigation}) => {
         </SafeAreaView>
     );
 }
+
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: COLORS.white,
@@ -251,7 +257,14 @@ const styles = StyleSheet.create({
         margin: 20,
     },
     buttonContainer: {
+        paddingVertical: 30,
+        paddingHorizontal: 40,
+    },
+    button: {
+        backgroundColor: COLORS.green,
         padding: 20
+
+
     },
     label: {
         fontSize: 32,
