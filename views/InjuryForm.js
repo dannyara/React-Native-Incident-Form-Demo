@@ -147,7 +147,7 @@ const InjuryForm = ({navigation}) => {
                 />
 
                 <DTPicker
-                    value={input.incidentDate || new Date()}
+                    value={new Date()}
                     mode='date'
                     dateInput={input.incidentDate}
                     buttonHeader={'Select Date'}
@@ -160,7 +160,7 @@ const InjuryForm = ({navigation}) => {
 
 
                 <DTPicker
-                    value={input.incidentTime || new Date()}
+                    value={ new Date()}
                     mode='time' buttonHeader={'Select Time'} label='Time of Incident'
                     changeDate={(newTime) => handleOnChange('incidentTime', newTime.getHours() + ':' + newTime.getMinutes())}
                     error={errors.incidentTime}

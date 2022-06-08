@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     },
     errorInfo: {
         color: COLORS.red,
-        fontSize: 14,
+        fontSize: 16,
         marginTop: 10
     },
     dateTimeInfo: {
