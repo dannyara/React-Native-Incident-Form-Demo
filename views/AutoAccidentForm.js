@@ -13,6 +13,7 @@ import COLORS from "../assets/colors";
 import FieldInput from "../components/FieldInput";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Dropdown from "../components/Dropdown";
+import axios from "axios";
 
 const AutoAccidentForm = ({navigation}) => {
     // json object of fields to be used in the form
@@ -90,6 +91,8 @@ const AutoAccidentForm = ({navigation}) => {
         try {
             const val = JSON.stringify(input, 0, 2)
             await AsyncStorage.setItem('AutoAccidentForm', val)
+            axios.post('', { val }) //TODO: submit val to backend
+                .then(response => console.log(response.data));
         } catch (e) {
             alert('an unexpected error has occurred:', '\n', e)
         }
@@ -114,7 +117,6 @@ const AutoAccidentForm = ({navigation}) => {
         })
     }
     const handleError = (field, errMsg) => {
-        console.log(field, errMsg)
         setErrors(previousState => ({...previousState, [field]: errMsg}))
         // square brackets because of dynamic field, see https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
     }

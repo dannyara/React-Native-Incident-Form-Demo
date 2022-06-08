@@ -32,7 +32,7 @@ With the Metro Bundler UI looking something like this:
 
 A common issue is the device disconnecting from the server, the device running expo may get this message pop up
 
-![img.png](assets/expo-go-error.jpg)
+![img.png](assets/expo-go-error.jpg) 
 
 
 - This happens when there has been a disruption in the server's live connection to the device, most common when running a tunnel connection

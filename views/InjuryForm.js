@@ -13,7 +13,8 @@ import COLORS from "../assets/colors";
 import FieldInput from "../components/FieldInput";
 import Dropdown from "../components/Dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import axios from "axios";
+import DateTimePicker from "../components/DateTimePicker";
 const InjuryForm = ({navigation}) => {
     const [errors, setErrors] = useState({})
 
@@ -52,18 +53,18 @@ const InjuryForm = ({navigation}) => {
             handleError('supervisorName', 'Please enter a full name, ie. John Doe')
             valid = false
         }
-        if (!input.incidentTime) {
-            handleError('incidentTime', 'This is a required field')
-            valid = false
-        } else if(!input.incidentTime.match(/((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/)) {
-            handleError('incidentTime', 'Please enter a valid time in hh:mm AM/PM Format. ie. 8:15 AM')
-        }
-        if (!input.incidentDate) {
-            handleError('incidentDate', 'This is a required field')
-            valid = false
-        } else if(!input.incidentDate.match(/(0\d{1}|1[0-2])\/([0-2]\d{1}|3[0-1])\/(20|21)\d{2}/)) {
-            handleError('incidentDate', 'Please enter a valid date in mm/dd/yyyy format ie. 06/08/2022')
-        }
+        // if (!input.incidentTime) {
+        //     handleError('incidentTime', 'This is a required field')
+        //     valid = false
+        // } else if(!input.incidentTime.match(/((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/)) {
+        //     handleError('incidentTime', 'Please enter a valid time in hh:mm AM/PM Format. ie. 8:15 AM')
+        // }
+        // if (!input.incidentDate) {
+        //     handleError('incidentDate', 'This is a required field')
+        //     valid = false
+        // } else if(!input.incidentDate.match(/(0\d{1}|1[0-2])\/([0-2]\d{1}|3[0-1])\/(20|21)\d{2}/)) {
+        //     handleError('incidentDate', 'Please enter a valid date in mm/dd/yyyy format ie. 06/08/2022')
+        // }
         if (!input.typeOfInjury) {
             handleError('typeOfInjury', 'This is a required field')
             valid = false
@@ -92,7 +93,8 @@ const InjuryForm = ({navigation}) => {
             console.log(val)
             // await storage for storing the value to be sent to the backend later
             await AsyncStorage.setItem('injuryForm', val)
-            //TODO: send http request to backend with data
+            axios.post('', { val }) //TODO: submit val to backend
+                .then(response => console.log(response.data));
         } catch (e) {
             alert('an unexpected error has occurred, see logs')
             console.log(e)
@@ -114,12 +116,12 @@ const InjuryForm = ({navigation}) => {
     })
     //This function handles updating the user input object, takes the field name and the text to update
     const handleOnChange = (field, text) => {
+        console.log(field, text)
         setInput(previousState => {
             return {...previousState, [field]: text} // square brackets because of dynamic field, see https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
         })
     }
     const handleError = (field, errMsg) => {
-        console.log(field, errMsg)
         setErrors(previousState => ({...previousState, [field]: errMsg}))
         // square brackets because of dynamic field, see https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
     }
@@ -143,22 +145,23 @@ const InjuryForm = ({navigation}) => {
                     height={60}
                     onChangeText={(text) => handleOnChange('incidentLocation', text)}
                 />
-                <FieldInput
+
+                <DateTimePicker
+                    value={input.incidentDate || new Date()}
+                    mode='date'
+                    data={input.incidentDate}
+                    buttonHeader={'Select Date'}
                     label='Date of Incident'
-                    placeholder='Please enter date in MM/DD/YYYY format'
-                    error={errors.incidentDate}
-                    onChangeText={(text) => handleOnChange('incidentDate', text)}
-                />
-                <FieldInput
-                    label='Date and time of Incident'
-                    placeholder='Please enter in HH:MM PM/AM format'
-                    error={errors.incidentTime}
-                    onChangeText={(text) => handleOnChange('incidentTime', text)}
-                />
+                    onChange={(event, newDate) => {
+                        handleOnChange('incidentDate', newDate)
+                    }}
+                    />
 
-                {/*<DatePicker value={new Date()} label='pick a date'/>*/}
-                {/*<RNDateTimePicker value={new Date()} />*/}
 
+                <DateTimePicker value={input.incidentTime || new Date()} mode='time' buttonHeader={'Select Time'} label='Time of Incident'
+                                onChange={(newTime) => handleOnChange('incidentTime', newTime)}
+                                data={input.incidentTime}
+                />
 
                 <FieldInput
                     label='Crew Leader Name'
@@ -176,6 +179,7 @@ const InjuryForm = ({navigation}) => {
                 />
                 <Dropdown
                     label="Stanley Tree Division"
+                    division={true}
                     selectedValue={input.division}
                     onValueChange={(division, index) =>
                         handleOnChange('division', division)
@@ -191,17 +195,23 @@ const InjuryForm = ({navigation}) => {
                     onChangeText={(text) => handleOnChange('injuryDetails', text)}
                 />
 
-                <FieldInput
+                <Dropdown
                     label='Part of body injured'
-                    placeholder='Please enter all that apply'
-                    error={errors.bodyPartInjured}
-                    onChangeText={(text) => handleOnChange('bodyPartInjured', text)}
+                    bodyPart={true}
+                    selectedValue={input.bodyPartInjured}
+                    onValueChange={(bodyPart, index) =>
+                        handleOnChange('bodyPartInjured', bodyPart)
+                    }
+                    error={errors.division}
                 />
-                <FieldInput
-                    label='Nature of Injury'
-                    placeholder='Please enter all that apply'
-                    error={errors.typeOfInjury}
-                    onChangeText={(text) => handleOnChange('typeOfInjury', text)}
+                <Dropdown
+                    label='Type of Injury'
+                    injuryType={true}
+                    selectedValue={input.typeOfInjury}
+                    onValueChange={(type, index) =>
+                        handleOnChange('typeOfInjury', type)
+                    }
+                    error={errors.division}
                 />
             </View>
             <View style={styles.buttonContainer}>
