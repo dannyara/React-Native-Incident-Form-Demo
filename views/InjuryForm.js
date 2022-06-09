@@ -211,11 +211,11 @@ const InjuryForm = ({navigation}) => {
                 <Dropdown
                     label='Type of Injury'
                     injuryType={true}
+                    error={errors.division}
                     selectedValue={input.typeOfInjury}
                     onValueChange={(type, index) =>
                         handleOnChange('typeOfInjury', type)
                     }
-                    error={errors.division}
                 />
             </View>
             <View style={styles.buttonContainer}>

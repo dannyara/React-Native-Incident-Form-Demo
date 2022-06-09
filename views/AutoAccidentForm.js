@@ -14,6 +14,7 @@ import FieldInput from "../components/FieldInput";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Dropdown from "../components/Dropdown";
 import axios from "axios";
+import DTPicker from "../components/DTPicker";
 
 const AutoAccidentForm = ({navigation}) => {
     // json object of fields to be used in the form
@@ -41,28 +42,28 @@ const AutoAccidentForm = ({navigation}) => {
         if (!input.crewLeaderName) {
             handleError('crewLeaderName', 'This is a required field')
             valid = false
-        }else if (!input.crewLeaderName.match(/\w{2,}\s\w/)) { // if name isn't first + last name
+        } else if (!input.crewLeaderName.match(/\w{2,}\s\w/)) { // if name isn't first + last name
             handleError('name', 'Please enter a full name, ie. John Doe')
             valid = false
         }
         if (!input.supervisorName) {
             handleError('supervisorName', 'This is a required field')
             valid = false
-        } else if (!input.supervisorName.match(/\w{2,}\s\w/)) { // if name isn't first + last name
+        } else if (!input.supervisorName.match(/\w{2,}\s\w/)) { // if name isn't First + Last name
             handleError('name', 'Please enter a full name, ie. John Doe')
             valid = false
         }
         if (!input.incidentTime) {
             handleError('incidentTime', 'This is a required field')
             valid = false
-        } else if(!input.incidentTime.match(/((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/)) {
-            handleError('incidentTime', 'Please enter a valid time in hh:mm AM/PM Format. ie. 8:15 AM')
+        // } else if (!input.incidentTime.match(/((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/)) {
+        //     handleError('incidentTime', 'Please enter a valid time in hh:mm AM/PM Format. ie. 8:15 AM')
         }
         if (!input.incidentDate) {
             handleError('incidentDate', 'This is a required field')
             valid = false
-        } else if(!input.incidentDate.match(/(0\d{1}|1[0-2])\/([0-2]\d{1}|3[0-1])\/(20|21)\d{2}/)) {
-            handleError('incidentDate', 'Please enter a valid date in mm/dd/yyyy format ie. 06/08/2022')
+        // } else if (!input.incidentDate.match(/(0\d{1}|1[0-2])\/([0-2]\d{1}|3[0-1])\/(20|21)\d{2}/)) {
+        //     handleError('incidentDate', 'Please enter a valid date in mm/dd/yyyy format ie. 06/08/2022')
         }
         if (!input.vehicleInvolved) {
             handleError('vehicleInvolved', 'This is a required field')
@@ -91,7 +92,7 @@ const AutoAccidentForm = ({navigation}) => {
         try {
             const val = JSON.stringify(input, 0, 2)
             await AsyncStorage.setItem('AutoAccidentForm', val)
-            axios.post('', { val }) //TODO: submit val to backend
+            axios.post('', {val}) //TODO: submit val to backend
                 .then(response => console.log(response.data));
         } catch (e) {
             alert('an unexpected error has occurred:', '\n', e)
@@ -105,8 +106,8 @@ const AutoAccidentForm = ({navigation}) => {
         crewLeaderName: '',
         division: '',
         supervisorName: '',
-        incidentDate: '',
-        incidentTime: '',
+        incidentDate: null,
+        incidentTime: null,
         vehicleInvolved: '',
         policeReportMade: false,
     })
@@ -125,6 +126,7 @@ const AutoAccidentForm = ({navigation}) => {
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <Text style={styles.label}> Auto Accident Form</Text>
             <View>
+                //calling these components, we can pass in the props they need to run from the parent, which lets us collect the outputs and set errors
                 <FieldInput
                     label='Name of Employee Involved'
                     placeholder='Enter full Name'
@@ -140,17 +142,24 @@ const AutoAccidentForm = ({navigation}) => {
                     height={60}
                     onChangeText={(text) => handleOnChange('incidentLocation', text)}
                 />
-                <FieldInput
+                <DTPicker
+                    value={new Date()}
+                    mode='date'
+                    dateInput={input.incidentDate}
+                    buttonHeader={'Select Date'}
                     label='Date of Incident'
-                    placeholder='Please enter date in MM/DD/YYYY format'
                     error={errors.incidentDate}
-                    onChangeText={(text) => handleOnChange('incidentDate', text)}
+                    changeDate={(newDate) => {
+                        handleOnChange('incidentDate', (newDate.getMonth() + '/' + newDate.getDate() + '/' + newDate.getFullYear()))
+                    }}
                 />
-                <FieldInput
-                    label='Time of Incident'
-                    placeholder='Please enter in HH:MM PM/AM format'
+
+                <DTPicker
+                    value={new Date()}
+                    mode='time' buttonHeader={'Select Time'} label='Time of Incident'
+                    changeDate={(newTime) => handleOnChange('incidentTime', newTime.getHours() + ':' + newTime.getMinutes())}
                     error={errors.incidentTime}
-                    onChangeText={(text) => handleOnChange('incidentTime', text)}
+                    timeInput={input.incidentTime}
                 />
 
                 <FieldInput
@@ -170,11 +179,12 @@ const AutoAccidentForm = ({navigation}) => {
                 {/*Picker is currently unsupported in Expo: https://github.com/react-native-picker/picker/issues/45*/}
                 <Dropdown
                     label="Stanley Tree Division"
+                    division={true}
                     selectedValue={input.division}
+                    error={errors.division}
                     onValueChange={(division, index) =>
                         handleOnChange('division', division)
                     }
-                    error={errors.division}
                 />
                 <FieldInput
                     label='Incident Details'
@@ -185,17 +195,19 @@ const AutoAccidentForm = ({navigation}) => {
                     onChangeText={(text) => handleOnChange('incidentDetails', text)}
                 />
                 <FieldInput
-                    label='Police Report Made'
+                    label='Police Report Details'
                     placeholder='Please enter all that apply'
                     error={errors.policeReportMade}
                     onChangeText={(text) => handleOnChange('policeReportMade', text)}
                 />
-                <FieldInput
+                <Dropdown
                     label='STS Vehicle Involved'
-                    placeholder='Please enter all that apply'
+                    equipment={true}
+                    selectedValue={input.vehicleInvolved}
+                    onValueChange={(vehicle, index) =>
+                        handleOnChange('division', vehicle)
+                    }
                     error={errors.vehicleInvolved}
-                    autoCapitalize='words'
-                    onChangeText={(text) => handleOnChange('vehicleInvolved', text)}
                 />
             </View>
             <View style={styles.buttonContainer}>
@@ -214,6 +226,7 @@ const AutoAccidentForm = ({navigation}) => {
 const AutoAccidentPage = ({navigation}) => {
     return (
         <SafeAreaView style={styles.container}>
+            {/*pass in navigation to auto accident*/}
             <AutoAccidentForm navigation={navigation}/>
         </SafeAreaView>
     );

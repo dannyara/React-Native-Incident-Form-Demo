@@ -3,8 +3,9 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 import COLORS from "../assets/colors";
 import {Picker} from "@react-native-picker/picker";
 
-const Dropdown = ({injuryType, bodyPart, division, label, error, height, onFocus=() => {}, ...props}) => {  // receive props that can be configured when called
+const Dropdown = ({injuryType, equipment, bodyPart, division, label, error, height, onFocus=() => {}, ...props}) => {  // receive props that can be configured when called
 
+    //switch case for types of dropdown, injurytype, bodypart, and equipment
     return(
         <View style={{marginBottom: 20}}>
             <Text style={styles.label}> {label} </Text>
@@ -12,6 +13,7 @@ const Dropdown = ({injuryType, bodyPart, division, label, error, height, onFocus
                 {division && (
                     <Picker {...props}
                             style={styles.dropdown}>
+                        {/*passing in value of '' is the equivalent of not selecting anything at all*/}
                         <Picker.Item label="Select a STS Division" style={{textColor: COLORS.gray}} value=""/>
                         <Picker.Item label="Commercial" value="Commercial"/>
                         <Picker.Item label="DOT" value="DOT"/>
@@ -52,6 +54,17 @@ const Dropdown = ({injuryType, bodyPart, division, label, error, height, onFocus
                         <Picker.Item label="Amputation" value="Amputation"/>
                         <Picker.Item label="Concussion" value="Concussion"/>
                         <Picker.Item label="Superficial" value="Superficial"/>
+                    </Picker>
+                )}
+                {equipment && (
+                    <Picker {...props}
+                            style={styles.dropdown}>
+                        <Picker.Item label="Select STS Equipment" style={{textColor: COLORS.gray}} value=""/>
+                        <Picker.Item label="Ford F150" value="Ford F150"/>
+                        <Picker.Item label="Chevy Silverado" value="Chevy Silverado"/>
+                        <Picker.Item label="Dump truck" value="Dump truck"/>
+                        <Picker.Item label="Excavator " value="Excavator"/>
+
                     </Picker>
                 )}
 
