@@ -15,6 +15,7 @@ const FormButtons = ({navigation}) => {
             <View style={{margin: 20}}>
                 <Button
                     style={styles.buttons}
+                    testId="injuryFormButton"
                     onPress={() => {
                         navigation.navigate('InjuryForm') //navigates to Injury Form
                     }}
@@ -24,6 +25,7 @@ const FormButtons = ({navigation}) => {
             <View style={{margin: 20}}>
                 <Button
                     style={styles.buttons}
+                    testId="AccidentFormButton"
                     onPress={() => {
                         navigation.navigate('AutoAccidentForm') // Navigates to auto accident form
                     }}
@@ -58,6 +60,7 @@ const App = () => {
                 <Stack.Screen
                     name="Home"
                     component={HomePage}
+                    testID='homePage'
                     options={{title: "Welcome to STS Connect"}}
                 />
                 <Stack.Screen

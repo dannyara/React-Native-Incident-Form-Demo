@@ -81,8 +81,7 @@ const AutoAccidentForm = ({navigation}) => {
             submit().then(r => {
                 Keyboard.dismiss()
                 const val = JSON.stringify(input, 0, 2)
-                alert('output: ', val)
-                alert('Auto Accident Form submitted successfully!' + '\n')
+                alert('Injury Form submitted successfully! \n Output: ' + val)
                 console.log(r)
                 navigation.pop()
             })

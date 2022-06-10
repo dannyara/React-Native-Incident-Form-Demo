@@ -80,8 +80,7 @@ const InjuryForm = ({navigation}) => {
         if (valid) {
             submit().then(r => {
                 const val = JSON.stringify(input, 0, 2)
-                alert('output: ' + val)
-                alert('Injury Form submitted successfully!')
+                alert('Injury Form submitted successfully! \n Output: ' + val)
                 // return user back to home
                 navigation.pop()
             })
