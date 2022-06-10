@@ -8,12 +8,17 @@ import App from '../App';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 import {FireEvent, render} from "@testing-library/react-native";
+import AutoAccidentForm from "../views/AutoAccidentForm";
+import InjuryForm from "../views/InjuryForm";
+
+
+it('simple test', () => {
+    expect(1).toBe(1);
+    expect(true).toBe(true)
+});
 
 it('renders correctly', () => {
     renderer.create(<App />);
-});
-it('works', () => {
-    expect(1).toBe(1);
 });
 
 describe('home screen', () => {
@@ -21,6 +26,17 @@ describe('home screen', () => {
         const page = render(<App />)
         const injuryButton = page.getByTestId('homePage')
         const autoAccidentButton = page.getByTestId('accidentFormButton')
+    })
+})
+
+describe('injury form', () => {
+    it('should render the form', () => {
+        const page = render(<InjuryForm />)
+    })
+})
+describe('Auto Accident form', () => {
+    it('should render the form', () => {
+        const page = render(<AutoAccidentForm />)
     })
 })
 
