@@ -56,7 +56,7 @@ const HomePage = ({navigation}) => {
 const App = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator id='home-stack'>
                 <Stack.Screen
                     name="Home"
                     component={HomePage}

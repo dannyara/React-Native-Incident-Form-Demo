@@ -125,7 +125,7 @@ const AutoAccidentForm = ({navigation}) => {
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <Text style={styles.label}> Auto Accident Form</Text>
             <View>
-                //calling these components, we can pass in the props they need to run from the parent, which lets us collect the outputs and set errors
+                {/*//calling these components, we can pass in the props they need to run from the parent, which lets us collect the outputs and set errors*/}
                 <FieldInput
                     label='Name of Employee Involved'
                     placeholder='Enter full Name'
