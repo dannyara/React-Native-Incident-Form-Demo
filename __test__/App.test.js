@@ -7,9 +7,10 @@ import React from 'react';
 import App from '../App';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
-import {FireEvent, screen, cleanup, render} from "@testing-library/react-native";
 import AutoAccidentForm from "../views/AutoAccidentForm";
 import InjuryForm from "../views/InjuryForm";
+import {render, fireEvent} from "@testing-library/react-native";
+import InjuryPage from "../views/InjuryForm";
 
 
 it('simple test', () => {
@@ -48,3 +49,14 @@ describe('Auto Accident form', () => {
         expect(page).toMatchSnapshot();
     })
 })
+
+
+test('given empty GroceryShoppingList, user can add an item to it', () => {
+    const { getByPlaceholder, getByText, getAllByText } = render(
+        <InjuryPage/>
+    );
+    fireEvent.changeText(getByPlaceholder("Enter Full Name"), 'Danny A');
+
+    const bananaElements = getAllByText('Danny A');
+    expect(bananaElements).toHaveLength(1); // expect 'banana' to be on the list
+});
